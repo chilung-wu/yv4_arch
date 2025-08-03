@@ -7,10 +7,12 @@
 ## 主要特色
 
 ### 🔧 技術架構
-- **硬體平台**: ASPEED AST2600 BMC SoC
+- **硬體平台**: ASPEED AST2620-A3 BMC SoC
+- **記憶體**: 1024MB DDR4 (ECC 啟用，910MB 可用)
+- **儲存**: 128MB SPI NOR Flash
 - **開機架構**: static-norootfs (無根檔案系統切換)
 - **檔案系統**: OverlayFS + UBIFS 混合架構
-- **服務管理**: systemd
+- **服務管理**: systemd 257.1
 
 ### 📊 研究重點
 1. **開機流程分析**: 從 ROM Code 到 systemd 的完整流程
@@ -79,16 +81,19 @@ code docs/comparison.md
 ## 技術規格
 
 ### 硬體平台
-- **CPU**: ARM Cortex-A7 雙核心 @ 800MHz
-- **記憶體**: 512MB DDR4
-- **儲存**: 64MB SPI NOR Flash
-- **網路**: 1Gbps Ethernet + NCSI
+- **SOC**: ASPEED AST2620-A3 (ARM Cortex-A7 雙核心 @ 1.2GHz)
+- **記憶體**: 1024MB DDR4-1600 (ECC 啟用，910MB 可用)
+- **儲存**: 128MB SPI NOR Flash (mx66l1g45g)
+- **網路**: 4x Gigabit Ethernet + NCSI
+- **製程**: 28nm 先進製程
 
-### 軟體堆疊
-- **韌體**: U-Boot 2022.01+
-- **核心**: Linux 5.15+ (OpenBMC)
-- **使用者空間**: Yocto-based OpenBMC
-- **檔案系統**: static-norootfs + OverlayFS
+### 軟體堆疊 (實際版本)
+- **韌體**: U-Boot 2019.04 yosemite4-v2025.26.1.b1896
+- **核心**: Linux 6.6.94-fe092ec-dirty-9fb2cfa
+- **編譯器**: GCC 14.2.0, GNU Binutils 2.44
+- **使用者空間**: OpenBMC yosemite4-v2025.26.1.b1896
+- **檔案系統**: static-norootfs + OverlayFS + UBIFS
+- **init 系統**: systemd 257.1
 
 ## 開發工具
 
@@ -101,23 +106,3 @@ code docs/comparison.md
 - Mermaid Preview (流程圖預覽)
 - Markdown All in One (文件編輯)
 - GitLens (版本控制)
-
-## 貢獻指南
-
-1. Fork 此專案
-2. 建立功能分支 (`git checkout -b feature/analysis-enhancement`)
-3. 提交變更 (`git commit -am 'Add detailed memory analysis'`)
-4. 推送分支 (`git push origin feature/analysis-enhancement`)
-5. 建立 Pull Request
-
-## 授權條款
-
-此專案採用 MIT 授權條款 - 詳見 [LICENSE](LICENSE) 檔案。
-
-## 聯絡資訊
-
-如有技術問題或建議，請透過 Issues 頁面聯繫。
-
----
-
-**注意**: 此分析基於公開的 OpenBMC 原始碼和技術文件。所有資訊僅供學術研究和技術學習使用。

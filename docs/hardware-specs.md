@@ -40,21 +40,21 @@ Facebook Yosemite4 是基於 ASPEED AST2620-A3 SoC 的 BMC (Baseboard Management
 ┌─────────────────────────────────────────┐
 │          Flash 分割區配置                │
 ├─────────────────────────────────────────┤
-│ 總容量: 64MB SPI NOR Flash              │
+│ 總容量: 128MB SPI NOR Flash             │
 │ ├── U-Boot SPL:         512KB           │
 │ ├── U-Boot Proper:      512KB           │
 │ ├── U-Boot 環境變數:    128KB           │
-│ ├── FIT Image:          48MB            │
-│ │   ├── Kernel:         ~8MB            │
+│ ├── FIT Image:          ~80MB           │
+│ │   ├── Kernel:         ~10MB           │
 │ │   ├── Device Tree:    ~64KB           │
-│ │   └── Initramfs:      ~40MB           │
-│ ├── 持久化分割區:       12MB            │
-│ └── 保留空間:           3MB             │
+│ │   └── Initramfs:      ~70MB           │
+│ ├── 持久化分割區 (UBI): ~40MB           │
+│ └── 保留空間:           ~7MB            │
 └─────────────────────────────────────────┘
 ```
 
 #### Flash 技術規格
-- **主 Flash**: Winbond W25Q512JV (64MB)
+- **主 Flash**: Macronix mx66l1g45g (128MB)
 - **介面**: Quad SPI (QSPI)
 - **速度**: 104MHz 最大時脈
 - **備用 Flash**: 可選第二顆 Flash 實現雙備份
@@ -184,9 +184,11 @@ GPIO 配置 (部分重要訊號):
 ## 軟體堆疊支援
 
 ### 🐧 作業系統
-- **OpenBMC**: 主要支援的 BMC 韌體
-- **核心版本**: Linux 5.15+ LTS
-- **函式庫**: musl libc (嵌入式最佳化)
+- **OpenBMC**: yosemite4-v2025.26.1.b1896
+- **核心版本**: Linux 6.6.94-fe092ec-dirty-9fb2cfa
+- **編譯器**: GCC 14.2.0, GNU Binutils 2.44
+- **init 系統**: systemd 257.1
+- **函式庫**: glibc (OpenBMC 標準)
 
 ### 🛠️ 開發工具鏈
 - **交叉編譯**: arm-openbmc-linux-gnueabi
