@@ -1,0 +1,93 @@
+#!/bin/sh
+# 50-mount-persistent - 設定 OverlayFS 實現選擇性目錄持久化
+# 這是 static-norootfs 架構的核心特色
+
+PERSIST="/run/mnt-persist"
+# 從配置中定義的持久化目錄列表
+PERSISTENT_DIRS="/var /etc /home"
+
+echo "Setting up overlay filesystems for persistent directories..."
+
+# 檢查持久化儲存是否已掛載
+if ! mountpoint -q "$PERSIST"; then
+    echo "ERROR: Persistent storage not mounted at $PERSIST"
+    exit 1
+fi
+
+# 為單一目錄設定 overlay 的函數
+mount_overlay() {
+    local dir=$1
+    local lower_dir="$dir"
+    local upper_dir="$PERSIST${dir}-data"
+    local work_dir="$PERSIST${dir}-work"
+    
+    echo "Setting up overlay for $dir..."
+    
+    # 建立必要的目錄
+    mkdir -p "$upper_dir"
+    mkdir -p "$work_dir"
+    
+    # 確保工作目錄是空的 (OverlayFS 要求)
+    if [ "$(ls -A "$work_dir" 2>/dev/null)" ]; then
+        echo "Cleaning work directory $work_dir"
+        rm -rf "$work_dir"/*
+    fi
+    
+    # 掛載 OverlayFS
+    if mount -t overlay overlay "$dir" \
+        -o lowerdir="$lower_dir",upperdir="$upper_dir",workdir="$work_dir"; then
+        echo "Successfully mounted overlay for $dir"
+        
+        # 設定正確的權限 (如果需要)
+        case "$dir" in
+            "/var")
+                chmod 755 "$dir"
+                # 確保重要的 /var 子目錄存在
+                mkdir -p "$dir/log" "$dir/lib" "$dir/cache" "$dir/run"
+                ;;
+            "/etc")
+                chmod 755 "$dir"
+                ;;
+            "/home")
+                chmod 755 "$dir"
+                # 確保 root 家目錄存在
+                mkdir -p "$dir/root"
+                chmod 700 "$dir/root"
+                ;;
+        esac
+        
+        return 0
+    else
+        echo "ERROR: Failed to mount overlay for $dir"
+        return 1
+    fi
+}
+
+# 為每個持久化目錄設定 overlay
+for dir in $PERSISTENT_DIRS; do
+    if [ -d "$dir" ]; then
+        mount_overlay "$dir"
+    else
+        echo "WARNING: Directory $dir does not exist, skipping"
+    fi
+done
+
+# 顯示最終的掛載狀態
+echo "Overlay filesystem setup completed"
+echo "Current overlay mounts:"
+mount | grep overlay | while read -r line; do
+    echo "  $line"
+done
+
+# 顯示持久化儲存使用情況
+echo "Persistent storage usage:"
+df -h "$PERSIST"
+
+# 建立必要的符號連結 (如果需要)
+# 例如，確保 /var/run 指向 /run
+if [ ! -e /var/run ] || [ ! -L /var/run ]; then
+    rm -rf /var/run
+    ln -s /run /var/run
+fi
+
+echo "Persistent directory overlay setup completed successfully"

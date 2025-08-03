@@ -1,0 +1,42 @@
+#!/bin/sh  
+# 20-udev - 初始化裝置管理子系統
+# 負責偵測硬體並建立裝置節點
+
+echo "Starting udev device management..."
+
+# 啟動 udev 守護程序
+echo "Starting systemd-udevd..."
+/lib/systemd/systemd-udevd --daemon
+
+# 等待 udevd 完全啟動
+sleep 1
+
+# 觸發所有裝置的偵測
+echo "Triggering device detection..."
+udevadm trigger --action=add --type=subsystems
+udevadm trigger --action=add --type=devices
+
+# 等待所有 udev 事件處理完成
+echo "Waiting for udev to settle..."
+udevadm settle --timeout=30
+
+# 確保重要的裝置節點存在
+if [ ! -e /dev/console ]; then
+    mknod /dev/console c 5 1
+fi
+
+if [ ! -e /dev/null ]; then
+    mknod /dev/null c 1 3
+fi
+
+# 建立符號連結 (如果需要)
+if [ -e /dev/mtd0 ] && [ ! -e /dev/mtd/rwfs ]; then
+    mkdir -p /dev/mtd
+    # 通常 rwfs 是最後一個 MTD 分割區
+    LAST_MTD=$(ls /dev/mtd[0-9]* | tail -1 | sed 's/[^0-9]*//g')
+    if [ -n "$LAST_MTD" ]; then
+        ln -s /dev/mtd${LAST_MTD} /dev/mtd/rwfs
+    fi
+fi
+
+echo "udev initialization completed"

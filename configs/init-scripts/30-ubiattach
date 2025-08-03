@@ -1,0 +1,103 @@
+#!/bin/sh
+# 30-ubiattach - 準備和掛載 UBIFS 持久化儲存
+# 這是 static-norootfs 持久化機制的核心
+
+RWFS_MTD="/dev/mtd/rwfs"
+PERSIST_DIR="/run/mnt-persist"
+UBI_DEVICE="/dev/ubi0"
+
+echo "Preparing persistent storage..."
+
+# 檢查 MTD 裝置是否存在
+if [ ! -e "$RWFS_MTD" ]; then
+    echo "ERROR: RWFS MTD device $RWFS_MTD not found"
+    exit 1
+fi
+
+# 格式化 RWFS 分割區的函數
+format_rwfs() {
+    echo "Formatting RWFS partition..."
+    
+    # 解除可能的現有掛載
+    umount "$PERSIST_DIR" 2>/dev/null || true
+    ubidetach -p "$RWFS_MTD" 2>/dev/null || true
+    
+    # 格式化為 UBI
+    echo "Running ubiformat on $RWFS_MTD..."
+    ubiformat --yes "$RWFS_MTD"
+    
+    # 附加 UBI 裝置
+    echo "Attaching UBI device..."
+    ubiattach -p "$RWFS_MTD"
+    
+    # 建立 UBI volume
+    echo "Creating UBI volume..."
+    ubimkvol "$UBI_DEVICE" -N rwfs -m
+    
+    # 掛載 UBIFS
+    echo "Mounting UBIFS..."
+    mount -t ubifs ubi0:rwfs "$PERSIST_DIR" -o sync,compr=zstd
+    
+    echo "RWFS formatted and mounted successfully"
+    return 0
+}
+
+# 掛載現有 RWFS 的函數
+mount_rwfs() {
+    echo "Attempting to mount existing RWFS..."
+    
+    # 附加 UBI 裝置
+    if ! ubiattach -p "$RWFS_MTD" 2>/dev/null; then
+        echo "Failed to attach UBI device"
+        return 1
+    fi
+    
+    # 掛載 UBIFS
+    if ! mount -t ubifs ubi0:rwfs "$PERSIST_DIR" -o sync,compr=zstd 2>/dev/null; then
+        echo "Failed to mount UBIFS"
+        ubidetach -p "$RWFS_MTD" 2>/dev/null || true
+        return 1
+    fi
+    
+    echo "RWFS mounted successfully"
+    return 0
+}
+
+# 檢查是否需要工廠重置
+check_factory_reset() {
+    # 檢查 U-Boot 環境變數
+    if fw_printenv openbmconce 2>/dev/null | grep -q "factory-reset"; then
+        echo "Factory reset requested via U-Boot environment"
+        fw_setenv openbmconce  # 清除標記
+        return 0
+    fi
+    
+    # 檢查 GPIO 重置訊號 (如果有硬體重置按鈕)
+    # 這裡可以根據具體硬體添加 GPIO 檢查邏輯
+    
+    return 1
+}
+
+# 主要邏輯
+if check_factory_reset; then
+    echo "Factory reset detected, formatting storage..."
+    format_rwfs
+else
+    # 嘗試掛載現有的檔案系統，失敗則格式化
+    if ! mount_rwfs; then
+        echo "Cannot mount existing RWFS, formatting..."
+        format_rwfs
+    fi
+fi
+
+# 驗證掛載是否成功
+if ! mountpoint -q "$PERSIST_DIR"; then
+    echo "ERROR: Failed to mount persistent storage"
+    exit 1
+fi
+
+# 檢查可用空間
+AVAIL_SPACE=$(df "$PERSIST_DIR" | tail -1 | awk '{print $4}')
+echo "Persistent storage mounted with ${AVAIL_SPACE}KB available space"
+
+echo "Persistent storage preparation completed"

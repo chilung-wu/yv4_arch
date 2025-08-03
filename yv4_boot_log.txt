@@ -1,0 +1,1287 @@
+
+root@bmc:~# ▒▒▒J▒
+U-Boot SPL 2019.04 yosemite4-v2025.26.1.b1896 (May 23 2025 - 06:46:26 +0000)
+Trying to boot from RAM
+
+
+U-Boot 2019.04 yosemite4-v2025.26.1.b1896 (May 23 2025 - 06:46:26 +0000)
+
+SOC: AST2620-A3
+RST: Power On
+eSPI Mode: SIO:Enable : SuperIO-2e
+Eth: MAC0: RMII/NCSI, MAC1: RMII/NCSI, MAC2: RMII/NCSI, MAC3: RMII/NCSI
+Model: AST2600 EVB
+DRAM:  already initialized, 910 MiB (capacity:1024 MiB, VGA:0 MiB, ECC:on, ECC size:910 MiB)
+MMC:
+
+sdhci_slot0@100: 1, sdhci_slot1@200: 2, emmc_slot0@100: 0
+Loading Environment from SPI Flash... SF: Detected mx66l1g45g with page size 256 Bytes, erase size 4 KiB, total 128 MiB
+OK
+In:    serial@1e784000
+Out:   serial@1e784000
+Err:   serial@1e784000
+Model: AST2600 EVB
+Net:   No MDIO found.
+No ethernet found.
+Hit any key to stop autoboot:  0
+## Loading kernel from FIT Image at 83000000 ...
+   Using 'conf-aspeed-bmc-facebook-yosemite4.dtb' configuration
+   Verifying Hash Integrity ... OK
+   Trying 'kernel-1' kernel subimage
+     Description:  Linux kernel
+     Type:         Kernel Image
+     Compression:  uncompressed
+     Data Start:   0x830000e4
+     Data Size:    4602000 Bytes = 4.4 MiB
+     Architecture: ARM
+     OS:           Linux
+     Load Address: 0x80001000
+     Entry Point:  0x80001000
+     Hash algo:    sha256
+     Hash value:   ba2aa529625cec82aaa2e59cdf7dad411c241e8acb3b5f4a6f32a6e8d397c777
+   Verifying Hash Integrity ... sha256+ OK
+## Loading ramdisk from FIT Image at 83000000 ...
+   Using 'conf-aspeed-bmc-facebook-yosemite4.dtb' configuration
+   Verifying Hash Integrity ... OK
+   Trying 'ramdisk-1' ramdisk subimage
+     Description:  yosemite4-image-yosemite4-20250729030142.cpio.zst
+     Type:         RAMDisk Image
+     Compression:  uncompressed
+     Data Start:   0x8347597c
+     Data Size:    48928837 Bytes = 46.7 MiB
+     Architecture: ARM
+     OS:           Linux
+     Load Address: unavailable
+     Entry Point:  unavailable
+     Hash algo:    sha256
+     Hash value:   47f32809088429e7b9fda237f0cb1eb0064a3f5dd6c456d994711ebdfb3ba8d0
+   Verifying Hash Integrity ... sha256+ OK
+## Loading fdt from FIT Image at 83000000 ...
+   Using 'conf-aspeed-bmc-facebook-yosemite4.dtb' configuration
+   Verifying Hash Integrity ... OK
+   Trying 'fdt-aspeed-bmc-facebook-yosemite4.dtb' fdt subimage
+     Description:  Flattened Device Tree blob
+     Type:         Flat Device Tree
+     Compression:  uncompressed
+     Data Start:   0x83463a94
+     Data Size:    73216 Bytes = 71.5 KiB
+     Architecture: ARM
+     Hash algo:    sha256
+     Hash value:   edaa629d985e69c43732acfdf8f6e82188d2e9e8bb70888a21710237a148a618
+   Verifying Hash Integrity ... sha256+ OK
+   Booting using the fdt blob at 0x83463a94
+   Loading Kernel Image ... OK
+   Loading Ramdisk to 8d156000, end 8ffff845 ... OK
+   Loading Device Tree to 8d141000, end 8d155dff ... OK
+
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0xf00
+[    0.000000] Linux version 6.6.94-fe092ec-dirty-9fb2cfa-00552-g9fb2cfa6cebd (oe-user@oe-host) (arm-fb-linux-gnueabi-gcc (GCC) 14.2.0, GNU ld (GNU Binutils) 2.44) #1 SMP Thu Jul 24 07:48:22 UTC 2025
+[    0.000000] CPU: ARMv7 Processor [410fc075] revision 5 (ARMv7), cr=10c5387d
+[    0.000000] CPU: div instructions available: patching division code
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] OF: fdt: Machine model: Facebook Yosemite 4 BMC
+[    0.000000] Memory policy: Data cache writealloc
+[    0.000000] cma: Reserved 16 MiB at 0xb7c00000 on node -1
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000080000000-0x00000000b8dfffff]
+[    0.000000]   HighMem  empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000080000000-0x00000000b8dfffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000080000000-0x00000000b8dfffff]
+[    0.000000] percpu: Embedded 18 pages/cpu s41044 r8192 d24492 u73728
+[    0.000000] Kernel command line: console=ttyS4,57600n8 root=/dev/ram rw vmalloc=768M
+[    0.000000] Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 230912
+[    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.000000] Memory: 842768K/931840K available (10240K kernel code, 869K rwdata, 2600K rodata, 1024K init, 180K bss, 72688K reserved, 16384K cma-reserved, 0K highmem)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+[    0.000000] ftrace: allocating 33135 entries in 98 pages
+[    0.000000] ftrace: allocated 98 pages with 3 groups
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu:     RCU event tracing is enabled.
+[    0.000000]  Rude variant of Tasks RCU enabled.
+[    0.000000]  Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] arch_timer: cp15 timer(s) running at 1200.00MHz (phys).
+[    0.000000] clocksource: arch_sys_counter: mask: 0x1fffffffffffffff max_cycles: 0x114c1bbbeec, max_idle_ns: 440795229572 ns
+[    0.000001] sched_clock: 61 bits at 1200MHz, resolution 0ns, wraps every 2199023255551ns
+[    0.000013] Switching to timer-based delay loop, resolution 0ns
+[    0.000956] Calibrating delay loop (skipped), value calculated using timer frequency.. 2400.00 BogoMIPS (lpj=12000000)
+[    0.000980] CPU: Testing write buffer coherency: ok
+[    0.001040] pid_max: default: 32768 minimum: 301
+[    0.008205] Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+[    0.008225] Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+[    0.017045] RCU Tasks Rude: Setting shift to 1 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=2.
+[    0.017251] RCU Tasks Trace: Setting shift to 1 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=2.
+[    0.017397] Setting up static identity map for 0x80100000 - 0x80100060
+[    0.017571] rcu: Hierarchical SRCU implementation.
+[    0.017579] rcu:     Max phase no-delay instances is 1000.
+[    0.018636] ASPEED Unknown rev A3 (05030203)
+[    0.019002] smp: Bringing up secondary CPUs ...
+[    0.019955] smp: Brought up 1 node, 2 CPUs
+[    0.019977] SMP: Total of 2 processors activated (4800.00 BogoMIPS).
+[    0.019986] CPU: All CPU(s) started in SVC mode.
+[    0.022106] devtmpfs: initialized
+[    0.040468] VFP support v0.3: implementor 41 architecture 2 part 30 variant 7 rev 5
+[    0.040751] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    0.040777] futex hash table entries: 512 (order: 3, 32768 bytes, linear)
+[    0.045785] pinctrl core: initialized pinctrl subsystem
+[    0.051530] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.052762] DMA: preallocated 256 KiB pool for atomic coherent allocations
+[    0.054114] hw-breakpoint: found 5 (+1 reserved) breakpoint and 4 watchpoint registers.
+[    0.054133] hw-breakpoint: maximum watchpoint size is 8 bytes.
+[    0.061144] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_b0: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/rmii4_default
+[    0.061207] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_b2: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/usb2bh_default
+[    0.061249] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_b3: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/usb2ad_default
+[    0.061290] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_b4: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/usb2bd_default
+[    0.061330] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_b5: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/jtagm_default
+[    0.061369] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_e0: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/gpiu6_default
+[    0.061410] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_e1: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/gpio0_unbiased
+[    0.061449] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_f0: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/sgpm2_default
+[    0.061489] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_f1: could not get #gpio-cells for /ahb/apb@1e780000/lpc@1e789000/reset-controller@98
+[    0.061528] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_f2: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/txd1_default
+[    0.061567] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_f3: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/rxd1_default
+[    0.061608] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_f4: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/wdtrst1_default
+[    0.061647] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_f5: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/wdtrst2_default
+[    0.061688] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_f6: could not get #gpio-cells for /ahb/apb@1e780000/bus@1e78a000/i2c-global-regs@0
+[    0.061726] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_f7: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/i2c1_default
+[    0.061766] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_i6: could not get #gpio-cells for /ahb/apb@1e6e0000/syscon@1e6e2000/pinctrl/txd3_default
+[    0.061896] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_l6: could not find phandle 94
+[    0.061979] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_l7: could not find phandle 95
+[    0.062044] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_m3: could not find phandle 99
+[    0.062103] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_m4: could not find phandle 100
+[    0.062159] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_m5: could not find phandle 101
+[    0.062214] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_n0: could not find phandle 104
+[    0.062270] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_n1: could not find phandle 105
+[    0.062321] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_n2: could not find phandle 106
+[    0.062373] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_n3: could not find phandle 107
+[    0.062423] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_p1: could not find phandle 121
+[    0.062473] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_q4: could not find phandle 132
+[    0.062523] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_q5: could not find phandle 133
+[    0.062573] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_q6: could not find phandle 134
+[    0.062622] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_q7: could not find phandle 135
+[    0.062672] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_r1: could not find phandle 137
+[    0.062721] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_s0: could not find phandle 144
+[    0.062771] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_s1: could not find phandle 145
+[    0.062819] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_s5: could not find phandle 149
+[    0.062869] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_u5: could not find phandle 165
+[    0.062918] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_v0: could not find phandle 168
+[    0.062969] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_v1: could not find phandle 169
+[    0.063020] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_v2: could not find phandle 170
+[    0.063070] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_v3: could not find phandle 171
+[    0.063119] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_v6: could not find phandle 174
+[    0.063168] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_v7: could not find phandle 175
+[    0.063218] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_w0: could not find phandle 176
+[    0.063267] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_w1: could not find phandle 177
+[    0.063316] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_w2: could not find phandle 178
+[    0.063365] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_w3: could not find phandle 179
+[    0.063414] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_w4: could not find phandle 180
+[    0.063463] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_w5: could not find phandle 181
+[    0.063512] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_w6: could not find phandle 182
+[    0.063561] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_w7: could not find phandle 183
+[    0.063610] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_x1: could not find phandle 185
+[    0.063660] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_x2: could not find phandle 186
+[    0.063709] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_x6: could not find phandle 190
+[    0.063759] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_x7: could not find phandle 191
+[    0.063808] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_y3: could not find phandle 195
+[    0.063857] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_z1: could not find phandle 201
+[    0.063906] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_z2: could not find phandle 202
+[    0.063955] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_z3: could not find phandle 203
+[    0.064004] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_z4: could not find phandle 204
+[    0.064053] OF: /ahb/apb@1e780000/gpio@1e780000/pin_gpio_z5: could not find phandle 205
+[    0.071117] /ahb/interrupt-controller@40461000: Fixed dependency cycle(s) with /ahb/interrupt-controller@40461000
+[    0.089997] kprobes: kprobe jump-optimization is enabled. All kprobes are optimized if possible.
+[    0.103251] AST2600 secure boot disabled
+[    0.104096] SCSI subsystem initialized
+[    0.104376] usbcore: registered new interface driver usbfs
+[    0.104421] usbcore: registered new interface driver hub
+[    0.104465] usbcore: registered new device driver usb
+[    0.104650] mc: Linux media interface: v0.10
+[    0.104681] videodev: Linux video capture interface: v2.00
+[    0.104710] pps_core: LinuxPPS API ver. 1 registered
+[    0.104715] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.104732] PTP clock support registered
+[    0.104748] EDAC MC: Ver: 3.0.0
+[    0.106263] mctp: management component transport protocol core
+[    0.106278] NET: Registered PF_MCTP protocol family
+[    0.107877] clocksource: Switched to clocksource arch_sys_counter
+[    0.118832] NET: Registered PF_INET protocol family
+[    0.119136] IP idents hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.121089] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[    0.121125] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.121142] TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.121212] TCP bind hash table entries: 8192 (order: 5, 131072 bytes, linear)
+[    0.121414] TCP: Hash tables configured (established 8192 bind 8192)
+[    0.121590] UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+[    0.121652] UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+[    0.122247] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.124790] workingset: timestamp_bits=14 max_order=18 bucket_order=4
+[    0.124946] Unpacking initramfs...
+[    0.135610] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.138101] jffs2: version 2.2. (SUMMARY)  © 2001-2006 Red Hat, Inc.
+[    0.140371] NET: Registered PF_ALG protocol family
+[    0.140793] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 246)
+[    0.141414] io scheduler bfq registered
+[    0.146363] jtag-aspeed 1e6e4100.jtag: missing or invalid reset controller device tree entry
+[    0.155462] Serial: 8250/16550 driver, 9 ports, IRQ sharing enabled
+[    0.162778] 1e783000.serial: ttyS0 at MMIO 0x1e783000 (irq = 33, base_baud = 115384) is a 16550A
+[    0.164539] 1e784000.serial: ttyS4 at MMIO 0x1e784000 (irq = 34, base_baud = 115384) is a 16550A
+[    0.164593] printk: console [ttyS4] enabled
+[    2.768723] 1e78d000.serial: ttyS1 at MMIO 0x1e78d000 (irq = 35, base_baud = 115384) is a 16550A
+[    2.790373] 1e78e000.serial: ttyS2 at MMIO 0x1e78e000 (irq = 36, base_baud = 115384) is a 16550A
+[    2.812032] 1e78f000.serial: ttyS3 at MMIO 0x1e78f000 (irq = 37, base_baud = 115384) is a 16550A
+[    2.833759] 1e790000.serial: ttyS5 at MMIO 0x1e790000 (irq = 38, base_baud = 115384) is a 16550A
+[    2.855141] 1e790100.serial: ttyS6 at MMIO 0x1e790100 (irq = 39, base_baud = 115384) is a 16550A
+[    2.876909] 1e790200.serial: ttyS7 at MMIO 0x1e790200 (irq = 40, base_baud = 115384) is a 16550A
+[    2.898718] 1e790300.serial: ttyS8 at MMIO 0x1e790300 (irq = 41, base_baud = 115384) is a 16550A
+[    2.919330] timeriomem_rng 1e6e2524.hwrng: 32bits from 0x(ptrval) @ 1us
+[    2.936337] random: crng init done
+[    2.951355] loop: module loaded
+[    3.009907] spi-nor spi0.0: mx66l1g45g (131072 Kbytes)
+[    3.076434] spi-aspeed-smc 1e620000.spi: CE0 read buswidth:2 [0x203c0641]
+[    4.331342] Freeing initrd memory: 47784K
+[    4.348528] 5 fixed-partitions partitions found on MTD device bmc
+[    4.362046] Creating 5 MTD partitions on "bmc":
+[    4.372068] 0x000000000000-0x0000000e0000 : "u-boot"
+[    4.384435] 0x0000000e0000-0x000000100000 : "u-boot-env"
+[    4.397446] 0x000000100000-0x000000a00000 : "kernel"
+[    4.409752] 0x000000a00000-0x000006000000 : "rofs"
+[    4.421638] 0x000006000000-0x000008000000 : "rwfs"
+[    4.434203] spi-nor spi0.1: mx66l1g45g (131072 Kbytes)
+[    4.500494] spi-aspeed-smc 1e620000.spi: CE1 read buswidth:2 [0x203c0641]
+[    4.527702] ftgmac100 1e670000.ethernet: Generated random MAC address 3a:75:b0:e4:6f:4b
+[    4.532254] tpm_tis_spi spi1.0: 2.0 TPM (device-id 0x1D, rev-id 54)
+[    4.545454] ftgmac100 1e670000.ethernet: Using NCSI interface
+[    4.562336] tpm tpm0: A TPM error (256) occurred attempting the self test
+[    4.586992] tpm tpm0: starting up the TPM manually
+[    4.590405] ftgmac100 1e670000.ethernet eth0: irq 42, mapped at 1a0a54f1
+[    4.612872] ftgmac100 1e690000.ethernet: Generated random MAC address f6:e0:99:53:23:74
+[    4.630587] ftgmac100 1e690000.ethernet: Using NCSI interface
+[    4.661769] ftgmac100 1e690000.ethernet eth1: irq 43, mapped at 323a9691
+[    4.676886] MCTP I2C interface driver
+[    4.685151] usbcore: registered new interface driver mctp-usb
+[    4.698349] platform-uhci 1e6b0000.usb: Detected 2 ports from device-tree
+[    4.709321] ehci-platform 1e6a1000.usb: EHCI Host Controller
+[    4.713384] platform-uhci 1e6b0000.usb: Enabled Aspeed implementation workarounds
+[    4.725873] ehci-platform 1e6a1000.usb: new USB bus registered, assigned bus number 1
+[    4.752568] platform-uhci 1e6b0000.usb: Generic UHCI Host Controller
+[    4.770501] ehci-platform 1e6a3000.usb: EHCI Host Controller
+[    4.773707] platform-uhci 1e6b0000.usb: new USB bus registered, assigned bus number 2
+[    4.786191] ehci-platform 1e6a3000.usb: new USB bus registered, assigned bus number 3
+[    4.803541] platform-uhci 1e6b0000.usb: irq 45, io mem 0x1e6b0000
+[    4.836280] ehci-platform 1e6a1000.usb: irq 44, io mem 0x1e6a1000
+[    4.836357] usb usb2: New USB device found, idVendor=1d6b, idProduct=0001, bcdDevice= 6.06
+[    4.868075] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    4.884061] usb usb2: Product: Generic UHCI Host Controller
+[    4.887881] ehci-platform 1e6a1000.usb: USB 2.0 started, EHCI 1.00
+[    4.896376] usb usb2: Manufacturer: Linux 6.6.94-fe092ec-dirty-9fb2cfa-00552-g9fb2cfa6cebd uhci_hcd
+[    4.929977] usb usb2: SerialNumber: 1e6b0000.usb
+[    4.940598] ehci-platform 1e6a3000.usb: irq 46, io mem 0x1e6a3000
+[    4.940890] hub 2-0:1.0: USB hub found
+[    4.962455] hub 2-0:1.0: 2 ports detected
+[    4.972052] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.06
+[    4.972160] usbcore: registered new interface driver usb-storage
+[    4.990376] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    5.003742] usbcore: registered new interface driver usbserial_generic
+[    5.019578] usb usb1: Product: EHCI Host Controller
+[    5.034008] usbserial: USB Serial support registered for generic
+[    5.044728] usb usb1: Manufacturer: Linux 6.6.94-fe092ec-dirty-9fb2cfa-00552-g9fb2cfa6cebd ehci_hcd
+[    5.044736] usb usb1: SerialNumber: 1e6a1000.usb
+[    5.044959] ehci-platform 1e6a3000.usb: USB 2.0 started, EHCI 1.00
+[    5.058101] usbcore: registered new interface driver ftdi_sio
+[    5.079960] hub 1-0:1.0: USB hub found
+[    5.088219] usbserial: USB Serial support registered for FTDI USB Serial Device
+[    5.104644] hub 1-0:1.0: 1 port detected
+[    5.115530] i2c_dev: i2c /dev entries driver
+[    5.125021] usb usb3: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.06
+[    5.149449] pca953x 0-0021: supply vcc not found, using dummy regulator
+[    5.157114] usb usb3: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    5.175518] pca953x 0-0021: using AI
+[    5.189932] usb usb3: Product: EHCI Host Controller
+[    5.189940] usb usb3: Manufacturer: Linux 6.6.94-fe092ec-dirty-9fb2cfa-00552-g9fb2cfa6cebd ehci_hcd
+[    5.189947] usb usb3: SerialNumber: 1e6a3000.usb
+[    5.208305] hub 3-0:1.0: USB hub found
+[    5.263087] hub 3-0:1.0: 1 port detected
+[    5.272716] pca953x 0-0022: supply vcc not found, using dummy regulator
+[    5.287526] pca953x 0-0022: using AI
+[    5.296924] pca953x 0-0023: supply vcc not found, using dummy regulator
+[    5.311772] pca953x 0-0023: using AI
+[    5.321234] pca953x 0-0024: supply vcc not found, using dummy regulator
+[    5.336063] pca953x 0-0024: using AI
+[    5.345439] i2c_ast2600 1e78a080.i2c: i2c [0]: adapter [400 khz] mode [1]
+[    5.362624] pca953x 1-0021: supply vcc not found, using dummy regulator
+[    5.377496] pca953x 1-0021: using AI
+[    5.386927] pca953x 1-0022: supply vcc not found, using dummy regulator
+[    5.401727] pca953x 1-0022: using AI
+[    5.411124] pca953x 1-0023: supply vcc not found, using dummy regulator
+[    5.425968] pca953x 1-0023: using AI
+[    5.435425] pca953x 1-0024: supply vcc not found, using dummy regulator
+[    5.450265] pca953x 1-0024: using AI
+[    5.457889] usb 1-1: new high-speed USB device number 2 using ehci-platform
+[    5.474819] i2c_ast2600 1e78a100.i2c: i2c [1]: adapter [400 khz] mode [1]
+[    5.492005] pca953x 2-0021: supply vcc not found, using dummy regulator
+[    5.506878] pca953x 2-0021: using AI
+[    5.516326] pca953x 2-0022: supply vcc not found, using dummy regulator
+[    5.531138] pca953x 2-0022: using AI
+[    5.540522] pca953x 2-0023: supply vcc not found, using dummy regulator
+[    5.555346] pca953x 2-0023: using AI
+[    5.564742] pca953x 2-0024: supply vcc not found, using dummy regulator
+[    5.567935] usb 3-1: new high-speed USB device number 2 using ehci-platform
+[    5.579532] pca953x 2-0024: using AI
+[    5.604084] i2c_ast2600 1e78a180.i2c: i2c [2]: adapter [400 khz] mode [1]
+[    5.621250] pca953x 3-0021: supply vcc not found, using dummy regulator
+[    5.636096] pca953x 3-0021: using AI
+[    5.645558] pca953x 3-0022: supply vcc not found, using dummy regulator
+[    5.660385] pca953x 3-0022: using AI
+[    5.669755] pca953x 3-0023: supply vcc not found, using dummy regulator
+[    5.679805] usb 1-1: New USB device found, idVendor=05e3, idProduct=0610, bcdDevice=61.60
+[    5.684603] pca953x 3-0023: using AI
+[    5.702437] usb 1-1: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+[    5.726086] usb 1-1: Product: USB2.0 Hub
+[    5.735773] hub 1-1:1.0: USB hub found
+[    5.736016] pca953x 3-0024: supply vcc not found, using dummy regulator
+[    5.747686] hub 1-1:1.0: 4 ports detected
+[    5.758890] pca953x 3-0024: using AI
+[    5.777004] i2c_ast2600 1e78a200.i2c: i2c [3]: adapter [400 khz] mode [1]
+[    5.789756] usb 3-1: New USB device found, idVendor=05e3, idProduct=0610, bcdDevice=61.60
+[    5.810096] usb 3-1: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+[    5.818869] pca953x 4-0021: supply vcc not found, using dummy regulator
+[    5.825891] usb 3-1: Product: USB2.0 Hub
+[    5.840640] pca953x 4-0021: using AI
+[    5.858038] hub 3-1:1.0: USB hub found
+[    5.858629] pca953x 4-0022: supply vcc not found, using dummy regulator
+[    5.866895] hub 3-1:1.0: 3 ports detected
+[    5.881146] pca953x 4-0022: using AI
+[    5.899231] pca953x 4-0023: supply vcc not found, using dummy regulator
+[    5.914073] pca953x 4-0023: using AI
+[    5.923448] pca953x 4-0024: supply vcc not found, using dummy regulator
+[    5.938240] pca953x 4-0024: using AI
+[    5.947559] i2c_ast2600 1e78a280.i2c: i2c [4]: adapter [400 khz] mode [1]
+[    5.964753] pca953x 5-0021: supply vcc not found, using dummy regulator
+[    5.979576] pca953x 5-0021: using AI
+[    5.988991] pca953x 5-0022: supply vcc not found, using dummy regulator
+[    6.003835] pca953x 5-0022: using AI
+[    6.013281] pca953x 5-0023: supply vcc not found, using dummy regulator
+[    6.028099] pca953x 5-0023: using AI
+[    6.037436] pca953x 5-0024: supply vcc not found, using dummy regulator
+[    6.052258] pca953x 5-0024: using AI
+[    6.061618] i2c_ast2600 1e78a300.i2c: i2c [5]: adapter [400 khz] mode [1]
+[    6.078900] pca953x 6-0021: supply vcc not found, using dummy regulator
+[    6.093733] pca953x 6-0021: using AI
+[    6.103163] pca953x 6-0022: supply vcc not found, using dummy regulator
+[    6.117916] usb 1-1.1: new high-speed USB device number 3 using ehci-platform
+[    6.118035] pca953x 6-0022: using AI
+[    6.143142] pca953x 6-0023: supply vcc not found, using dummy regulator
+[    6.158019] pca953x 6-0023: using AI
+[    6.167428] pca953x 6-0024: supply vcc not found, using dummy regulator
+[    6.182255] pca953x 6-0024: using AI
+[    6.191653] i2c_ast2600 1e78a380.i2c: i2c [6]: adapter [400 khz] mode [1]
+[    6.208940] pca953x 7-0021: supply vcc not found, using dummy regulator
+[    6.223808] pca953x 7-0021: using AI
+[    6.233297] pca953x 7-0022: supply vcc not found, using dummy regulator
+[    6.237900] usb 3-1.1: new high-speed USB device number 3 using ehci-platform
+[    6.248154] pca953x 7-0022: using AI
+[    6.273113] pca953x 7-0023: supply vcc not found, using dummy regulator
+[    6.287968] pca953x 7-0023: using AI
+[    6.297363] pca953x 7-0024: supply vcc not found, using dummy regulator
+[    6.312203] pca953x 7-0024: using AI
+[    6.318316] usb 1-1.1: New USB device found, idVendor=0424, idProduct=2514, bcdDevice= b.b3
+[    6.338561] usb 1-1.1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[    6.355532] hub 1-1.1:1.0: USB hub found
+[    6.355978] i2c_ast2600 1e78a400.i2c: i2c [7]: adapter [400 khz] mode [1]
+[    6.367563] hub 1-1.1:1.0: 4 ports detected
+[    6.380391] i2c_ast2600 1e78a480.i2c: i2c [8]: adapter [400 khz] mode [1]
+[    6.404693] i2c_ast2600 1e78a500.i2c: i2c [9]: adapter [400 khz] mode [1]
+[    6.420827] i2c_ast2600 1e78a580.i2c: i2c [10]: adapter [400 khz] mode [1]
+[    6.429754] usb 3-1.1: New USB device found, idVendor=05e3, idProduct=0610, bcdDevice=61.60
+[    6.437825] pca953x 11-0020: supply vcc not found, using dummy regulator
+[    6.454491] usb 3-1.1: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+[    6.469410] pca953x 11-0020: using no AI
+[    6.485408] usb 3-1.1: Product: USB2.0 Hub
+[    6.494962] hub 3-1.1:1.0: USB hub found
+[    6.511986] usb 1-1.2: new high-speed USB device number 4 using ehci-platform
+[    6.527948] hub 3-1.1:1.0: 4 ports detected
+[    6.539906] pca953x 11-0021: supply vcc not found, using dummy regulator
+[    6.554970] pca953x 11-0021: using no AI
+[    6.567033] pca953x 11-0022: supply vcc not found, using dummy regulator
+[    6.582076] pca953x 11-0022: using no AI
+[    6.594132] pca953x 11-0023: supply vcc not found, using dummy regulator
+[    6.609181] pca953x 11-0023: using no AI
+[    6.621750] at24 11-0054: supply vcc not found, using dummy regulator
+[    6.636918] at24 11-0054: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    6.652986] i2c_ast2600 1e78a600.i2c: i2c [11]: adapter [100 khz] mode [1]
+[    6.669450] i2c_ast2600 1e78a680.i2c: i2c [12]: adapter [400 khz] mode [1]
+[    6.677910] usb 3-1.2: new high-speed USB device number 4 using ehci-platform
+[    6.701091] usb 1-1.2: New USB device found, idVendor=0424, idProduct=2514, bcdDevice= b.b3
+[    6.708091] i2c_ast2600 1e78a700.i2c: i2c [13]: adapter [100 khz] mode [0]
+[    6.719612] usb 1-1.2: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[    6.737286] at24 14-0051: supply vcc not found, using dummy regulator
+[    6.765823] at24 14-0051: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    6.766042] hub 1-1.2:1.0: USB hub found
+[    6.781899] i2c_ast2600 1e78a780.i2c: i2c [14]: adapter [400 khz] mode [1]
+[    6.790167] hub 1-1.2:1.0: 4 ports detected
+[    6.806681] i2c_ast2600 1e78a800.i2c: i2c [15]: adapter [400 khz] mode [0]
+[    6.830806] pca954x 8-0070: supply vdd not found, using dummy regulator
+[    6.837916] usb 1-1.1.2: new high-speed USB device number 5 using ehci-platform
+[    6.862326] pca953x 16-0049: supply vcc not found, using dummy regulator
+[    6.877366] pca953x 16-0049: using no AI
+[    6.886301] pca953x 16-0049: failed writing register
+[    6.897889] at24 16-0050: supply vcc not found, using dummy regulator
+[    6.929758] usb 3-1.2: New USB device found, idVendor=05e3, idProduct=0610, bcdDevice=61.60
+[    6.948255] usb 3-1.2: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+[    6.964431] usb 3-1.2: Product: USB2.0 Hub
+[    6.974594] hub 3-1.2:1.0: USB hub found
+[    6.983635] hub 3-1.2:1.0: 4 ports detected
+[    6.985507] at24 16-0051: supply vcc not found, using dummy regulator
+[    7.028442] usb 1-1.1.2: config 1 interface 1 altsetting 0 bulk endpoint 0x82 has invalid maxpacket 64
+[    7.049069] usb 1-1.1.2: config 1 interface 1 altsetting 0 bulk endpoint 0x3 has invalid maxpacket 64
+[    7.069490] usb 3-1.1.1: new high-speed USB device number 5 using ehci-platform
+[    7.071530] at24 16-0054: supply vcc not found, using dummy regulator
+[    7.089183] usb 1-1.1.2: New USB device found, idVendor=1d6b, idProduct=0104, bcdDevice= 2.06
+[    7.118803] usb 1-1.1.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    7.135354] usb 1-1.1.2: Product: Zephyr CDC ACM
+[    7.145556] usb 1-1.1.2: Manufacturer: ZEPHYR
+[    7.155214] usb 1-1.1.2: SerialNumber: 0000018000000180
+[    7.155396] at24 16-0054: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    7.182270] i2c i2c-8: Added multiplexed i2c bus 16
+[    7.193805] pca953x 17-0049: supply vcc not found, using dummy regulator
+[    7.208830] pca953x 17-0049: using no AI
+[    7.217739] pca953x 17-0049: failed writing register
+[    7.229280] at24 17-0050: supply vcc not found, using dummy regulator
+[    7.237936] usb 1-1.3: new high-speed USB device number 6 using ehci-platform
+[    7.271505] at24 17-0051: supply vcc not found, using dummy regulator
+[    7.308394] usb 3-1.1.1: New USB device found, idVendor=0424, idProduct=2514, bcdDevice= b.b3
+[    7.310097] at24 17-0054: supply vcc not found, using dummy regulator
+[    7.327278] usb 3-1.1.1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[    7.358443] at24 17-0054: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    7.358953] hub 3-1.1.1:1.0: USB hub found
+[    7.373983] i2c i2c-8: Added multiplexed i2c bus 17
+[    7.383024] hub 3-1.1.1:1.0: 4 ports detected
+[    7.403834] pca953x 18-0049: supply vcc not found, using dummy regulator
+[    7.418865] pca953x 18-0049: using no AI
+[    7.427788] pca953x 18-0049: failed writing register
+[    7.428323] usb 1-1.3: New USB device found, idVendor=0424, idProduct=2514, bcdDevice= b.b3
+[    7.439347] at24 18-0050: supply vcc not found, using dummy regulator
+[    7.457233] usb 1-1.3: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[    7.458177] hub 1-1.3:1.0: USB hub found
+[    7.496469] hub 1-1.3:1.0: 4 ports detected
+[    7.508003] at24 18-0051: supply vcc not found, using dummy regulator
+[    7.551593] at24 18-0054: supply vcc not found, using dummy regulator
+[    7.557914] usb 3-1.1.2: new high-speed USB device number 6 using ehci-platform
+[    7.582077] usb 1-1.2.2: new high-speed USB device number 7 using ehci-platform
+[    7.598510] at24 18-0054: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    7.614006] i2c i2c-8: Added multiplexed i2c bus 18
+[    7.625470] pca953x 19-0049: supply vcc not found, using dummy regulator
+[    7.640497] pca953x 19-0049: using no AI
+[    7.649434] pca953x 19-0049: failed writing register
+[    7.660946] at24 19-0050: supply vcc not found, using dummy regulator
+[    7.701134] at24 19-0051: supply vcc not found, using dummy regulator
+[    7.741300] at24 19-0054: supply vcc not found, using dummy regulator
+[    7.748522] usb 3-1.1.2: New USB device found, idVendor=0424, idProduct=2514, bcdDevice= b.b3
+[    7.774448] usb 3-1.1.2: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[    7.791215] usb 1-1.2.2: config 1 interface 1 altsetting 0 bulk endpoint 0x82 has invalid maxpacket 64
+[    7.791318] at24 19-0054: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    7.811811] usb 1-1.2.2: config 1 interface 1 altsetting 0 bulk endpoint 0x3 has invalid maxpacket 64
+[    7.812633] hub 3-1.1.2:1.0: USB hub found
+[    7.827313] i2c i2c-8: Added multiplexed i2c bus 19
+[    7.847764] hub 3-1.1.2:1.0: 4 ports detected
+[    7.856648] pca954x 8-0070: registered 4 multiplexed busses for I2C mux pca9544
+[    7.867578] usb 1-1.2.2: New USB device found, idVendor=1d6b, idProduct=0104, bcdDevice= 2.06
+[    7.877249] pca954x 9-0071: supply vdd not found, using dummy regulator
+[    7.893207] usb 1-1.2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    7.943235] usb 1-1.2.2: Product: Zephyr CDC ACM
+[    7.953447] usb 1-1.2.2: Manufacturer: ZEPHYR
+[    7.958338] pca953x 20-0049: supply vcc not found, using dummy regulator
+[    7.963072] usb 1-1.2.2: SerialNumber: 0000018000000180
+[    7.978017] pca953x 20-0049: using no AI
+[    7.989609] usb 3-1.1.1.2: new high-speed USB device number 7 using ehci-platform
+[    8.014787] pca953x 20-0049: failed writing register
+[    8.026418] at24 20-0050: supply vcc not found, using dummy regulator
+[    8.070109] at24 20-0051: supply vcc not found, using dummy regulator
+[    8.077933] usb 1-1.4: new high-speed USB device number 8 using ehci-platform
+[    8.110664] at24 20-0054: supply vcc not found, using dummy regulator
+[    8.125634] at24 20-0054: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    8.141144] i2c i2c-9: Added multiplexed i2c bus 20
+[    8.152579] pca953x 21-0049: supply vcc not found, using dummy regulator
+[    8.158517] usb 3-1.1.1.2: config 1 interface 1 altsetting 0 bulk endpoint 0x82 has invalid maxpacket 64
+[    8.167586] pca953x 21-0049: using no AI
+[    8.188343] usb 3-1.1.1.2: config 1 interface 1 altsetting 0 bulk endpoint 0x3 has invalid maxpacket 64
+[    8.217879] pca953x 21-0049: failed writing register
+[    8.218251] usb 3-1.1.1.2: New USB device found, idVendor=1d6b, idProduct=0104, bcdDevice= 2.06
+[    8.229455] at24 21-0050: supply vcc not found, using dummy regulator
+[    8.248115] usb 3-1.1.1.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    8.279228] usb 3-1.1.1.2: Product: Zephyr CDC ACM
+[    8.289861] usb 3-1.1.1.2: Manufacturer: ZEPHYR
+[    8.299872] usb 3-1.1.1.2: SerialNumber: 0000018000000180
+[    8.313996] at24 21-0051: supply vcc not found, using dummy regulator
+[    8.348338] usb 1-1.4: New USB device found, idVendor=0424, idProduct=2514, bcdDevice= b.b3
+[    8.366834] usb 1-1.4: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[    8.383224] usb 3-1.1.3: new high-speed USB device number 8 using ehci-platform
+[    8.400009] hub 1-1.4:1.0: USB hub found
+[    8.401601] at24 21-0054: supply vcc not found, using dummy regulator
+[    8.408953] hub 1-1.4:1.0: 4 ports detected
+[    8.432645] at24 21-0054: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    8.448190] i2c i2c-9: Added multiplexed i2c bus 21
+[    8.459719] pca953x 22-0049: supply vcc not found, using dummy regulator
+[    8.474721] pca953x 22-0049: using no AI
+[    8.477893] usb 1-1.3.2: new high-speed USB device number 9 using ehci-platform
+[    8.499648] pca953x 22-0049: failed writing register
+[    8.511207] at24 22-0050: supply vcc not found, using dummy regulator
+[    8.551416] at24 22-0051: supply vcc not found, using dummy regulator
+[    8.578409] usb 3-1.1.3: New USB device found, idVendor=0424, idProduct=2514, bcdDevice= b.b3
+[    8.597281] usb 3-1.1.3: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[    8.614716] hub 3-1.1.3:1.0: USB hub found
+[    8.623893] hub 3-1.1.3:1.0: 4 ports detected
+[    8.635637] at24 22-0054: supply vcc not found, using dummy regulator
+[    8.650620] at24 22-0054: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    8.658569] usb 1-1.3.2: config 1 interface 1 altsetting 0 bulk endpoint 0x82 has invalid maxpacket 64
+[    8.666134] i2c i2c-9: Added multiplexed i2c bus 22
+[    8.686564] usb 1-1.3.2: config 1 interface 1 altsetting 0 bulk endpoint 0x3 has invalid maxpacket 64
+[    8.698053] pca953x 23-0049: supply vcc not found, using dummy regulator
+[    8.717832] usb 3-1.1.2.2: new high-speed USB device number 9 using ehci-platform
+[    8.732769] pca953x 23-0049: using no AI
+[    8.749684] usb 1-1.3.2: New USB device found, idVendor=1d6b, idProduct=0104, bcdDevice= 2.06
+[    8.776649] usb 1-1.3.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    8.793199] usb 1-1.3.2: Product: Zephyr CDC ACM
+[    8.803414] pca953x 23-0049: failed writing register
+[    8.803998] at24 23-0050: supply vcc not found, using dummy regulator
+[    8.814404] usb 1-1.3.2: Manufacturer: ZEPHYR
+[    8.814412] usb 1-1.3.2: SerialNumber: 0000018000000180
+[    8.817895] usb 1-1.4.2: new high-speed USB device number 10 using ehci-platform
+[    8.870005] at24 23-0051: supply vcc not found, using dummy regulator
+[    8.911701] at24 23-0054: supply vcc not found, using dummy regulator
+[    8.926659] at24 23-0054: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    8.928528] usb 3-1.1.2.2: config 1 interface 1 altsetting 0 bulk endpoint 0x82 has invalid maxpacket 64
+[    8.942185] i2c i2c-9: Added multiplexed i2c bus 23
+[    8.963021] usb 3-1.1.2.2: config 1 interface 1 altsetting 0 bulk endpoint 0x3 has invalid maxpacket 64
+[    8.973743] pca954x 9-0071: registered 4 multiplexed busses for I2C mux pca9544
+[    8.995134] usb 3-1.1.2.2: New USB device found, idVendor=1d6b, idProduct=0104, bcdDevice= 2.06
+[    9.010860] pca954x 10-0074: supply vdd not found, using dummy regulator
+[    9.029866] usb 3-1.1.2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    9.029878] usb 3-1.1.2.2: Product: Zephyr CDC ACM
+[    9.029884] usb 3-1.1.2.2: Manufacturer: ZEPHYR
+[    9.062240] pca953x 28-0020: supply vcc not found, using dummy regulator
+[    9.072176] usb 3-1.1.2.2: SerialNumber: 0000018000000180
+[    9.109136] pca953x 28-0020: using AI
+[    9.118451] usb 1-1.4.2: config 1 interface 1 altsetting 0 bulk endpoint 0x82 has invalid maxpacket 64
+[    9.139054] usb 1-1.4.2: config 1 interface 1 altsetting 0 bulk endpoint 0x3 has invalid maxpacket 64
+[    9.159473] usb 3-1.1.4: new high-speed USB device number 10 using ehci-platform
+[    9.176928] pca953x 28-0021: supply vcc not found, using dummy regulator
+[    9.179558] usb 1-1.4.2: New USB device found, idVendor=1d6b, idProduct=0104, bcdDevice= 2.06
+[    9.191941] pca953x 28-0021: using AI
+[    9.210611] usb 1-1.4.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    9.235217] usb 1-1.4.2: Product: Zephyr CDC ACM
+[    9.245424] usb 1-1.4.2: Manufacturer: ZEPHYR
+[    9.255048] usb 1-1.4.2: SerialNumber: 0000018000000180
+[    9.268663] pca953x 28-0022: supply vcc not found, using dummy regulator
+[    9.283738] pca953x 28-0022: using AI
+[    9.294114] pca953x 28-0023: supply vcc not found, using dummy regulator
+[    9.309125] pca953x 28-0023: using AI
+[    9.319466] pca953x 28-0024: supply vcc not found, using dummy regulator
+[    9.334481] pca953x 28-0024: using AI
+[    9.344643] i2c i2c-10: Added multiplexed i2c bus 28
+[    9.356050] i2c i2c-10: Added multiplexed i2c bus 29
+[    9.367354] i2c i2c-10: Added multiplexed i2c bus 36
+[    9.378650] i2c i2c-10: Added multiplexed i2c bus 37
+[    9.389642] pca954x 10-0074: registered 4 multiplexed busses for I2C mux pca9544
+[    9.398407] usb 3-1.1.4: New USB device found, idVendor=0424, idProduct=2514, bcdDevice= b.b3
+[    9.406309] pca954x 12-0070: supply vdd not found, using dummy regulator
+[    9.424812] usb 3-1.1.4: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[    9.456980] hub 3-1.1.4:1.0: USB hub found
+[    9.457115] at24 34-0050: supply vcc not found, using dummy regulator
+[    9.466279] hub 3-1.1.4:1.0: 4 ports detected
+[    9.490389] at24 34-0050: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    9.506176] at24 34-0054: supply vcc not found, using dummy regulator
+[    9.517909] usb 3-1.1.3.2: new high-speed USB device number 11 using ehci-platform
+[    9.537531] at24 34-0054: 8192 byte 24c64 EEPROM, writable, 1 bytes/write
+[    9.555160] rtc-nct3018y 34-006f: registered as rtc0
+[    9.566924] rtc-nct3018y 34-006f: setting system clock to 2025-07-29T05:15:43 UTC (1753766143)
+[    9.586335] pca953x 34-0020: supply vcc not found, using dummy regulator
+[    9.601345] pca953x 34-0020: using AI
+[    9.611790] pca953x 34-0021: supply vcc not found, using dummy regulator
+[    9.626838] pca953x 34-0021: using AI
+[    9.637226] pca953x 34-0022: supply vcc not found, using dummy regulator
+[    9.652237] pca953x 34-0022: using AI
+[    9.662621] pca953x 34-0023: supply vcc not found, using dummy regulator
+[    9.677615] pca953x 34-0023: using AI
+[    9.687778] i2c i2c-12: Added multiplexed i2c bus 34
+[    9.688514] usb 3-1.1.3.2: config 1 interface 1 altsetting 0 bulk endpoint 0x82 has invalid maxpacket 64
+[    9.699171] i2c i2c-12: Added multiplexed i2c bus 35
+[    9.719695] usb 3-1.1.3.2: config 1 interface 1 altsetting 0 bulk endpoint 0x3 has invalid maxpacket 64
+[    9.723376] usb 3-1.1.3.2: New USB device found, idVendor=1d6b, idProduct=0104, bcdDevice= 2.06
+[    9.731013] i2c i2c-12: Added multiplexed i2c bus 38
+[    9.751428] usb 3-1.1.3.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    9.751439] usb 3-1.1.3.2: Product: Zephyr CDC ACM
+[    9.751445] usb 3-1.1.3.2: Manufacturer: ZEPHYR
+[    9.770993] i2c i2c-12: Added multiplexed i2c bus 39
+[    9.781635] usb 3-1.1.3.2: SerialNumber: 0000018000000180
+[    9.842091] pca954x 12-0070: registered 4 multiplexed busses for I2C mux pca9544
+[    9.858722] pca954x 14-0073: supply vdd not found, using dummy regulator
+[    9.873877] pca954x 14-0073: probe failed
+[    9.877925] usb 3-1.1.4.2: new high-speed USB device number 12 using ehci-platform
+[    9.883088] pca954x 14-0074: supply vdd not found, using dummy regulator
+[    9.915687] pca953x 30-0022: supply vcc not found, using dummy regulator
+[    9.930724] pca953x 30-0022: using AI
+[    9.941169] at24 30-0052: supply vcc not found, using dummy regulator
+[    9.956136] at24 30-0052: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[    9.971974] i2c i2c-14: Added multiplexed i2c bus 30
+[    9.984134] pca953x 31-0022: supply vcc not found, using dummy regulator
+[    9.999188] pca953x 31-0022: using AI
+[   10.009754] at24 31-0052: supply vcc not found, using dummy regulator
+[   10.024768] at24 31-0052: 16384 byte 24c128 EEPROM, writable, 1 bytes/write
+[   10.040572] i2c i2c-14: Added multiplexed i2c bus 31
+[   10.051964] i2c i2c-14: Added multiplexed i2c bus 40
+[   10.063272] i2c i2c-14: Added multiplexed i2c bus 41
+[   10.068515] usb 3-1.1.4.2: config 1 interface 1 altsetting 0 bulk endpoint 0x82 has invalid maxpacket 64
+[   10.074268] pca954x 14-0074: registered 4 multiplexed busses for I2C switch pca9546
+[   10.095186] usb 3-1.1.4.2: config 1 interface 1 altsetting 0 bulk endpoint 0x3 has invalid maxpacket 64
+[   10.112305] pca954x 15-0072: supply vdd not found, using dummy regulator
+[   10.133508] usb 3-1.1.4.2: New USB device found, idVendor=1d6b, idProduct=0104, bcdDevice= 2.06
+[   10.166884] usb 3-1.1.4.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[   10.183825] usb 3-1.1.4.2: Product: Zephyr CDC ACM
+[   10.188713] at24 24-0050: supply vcc not found, using dummy regulator
+[   10.194424] usb 3-1.1.4.2: Manufacturer: ZEPHYR
+[   10.218648] usb 3-1.1.4.2: SerialNumber: 0000018000000180
+[   10.230860] at24 24-0050: 8192 byte 24c64 EEPROM, writable, 1 bytes/write
+[   10.246022] i2c i2c-15: Added multiplexed i2c bus 24
+[   10.258931] at24 25-0050: supply vcc not found, using dummy regulator
+[   10.299732] i2c i2c-15: Added multiplexed i2c bus 25
+[   10.312603] at24 26-0050: supply vcc not found, using dummy regulator
+[   10.327518] at24 26-0050: 8192 byte 24c64 EEPROM, writable, 1 bytes/write
+[   10.342658] i2c i2c-15: Added multiplexed i2c bus 26
+[   10.355484] at24 27-0050: supply vcc not found, using dummy regulator
+[   10.370363] at24 27-0050: 8192 byte 24c64 EEPROM, writable, 1 bytes/write
+[   10.385504] i2c i2c-15: Added multiplexed i2c bus 27
+[   10.396500] pca954x 15-0072: registered 4 multiplexed busses for I2C mux pca9544
+[   10.441348] Driver for 1-wire Dallas network protocol.
+[   10.456831] emc1403 24-003c: emc1403 Thermal chip found
+[   10.468851] emc1403 25-003c: emc1403 Thermal chip found
+[   10.480779] emc1403 26-003c: emc1403 Thermal chip found
+[   10.492674] emc1403 27-003c: emc1403 Thermal chip found
+[   10.506050] lm75 11-0048: supply vs not found, using dummy regulator
+[   10.521314] lm75 11-0048: hwmon7: sensor 'tmp75'
+[   10.531711] lm75 11-0049: supply vs not found, using dummy regulator
+[   10.546895] lm75 11-0049: hwmon8: sensor 'tmp75'
+[   10.557476] lm75 14-004e: supply vs not found, using dummy regulator
+[   10.572164] lm75 14-004e: hwmon9: sensor 'tmp75'
+[   10.582569] lm75 14-004f: supply vs not found, using dummy regulator
+[   10.597243] lm75 14-004f: hwmon10: sensor 'tmp75'
+[   10.608257] lm75 34-0048: supply vs not found, using dummy regulator
+[   10.623206] lm75 34-0048: hwmon11: sensor 'tmp75'
+[   10.634590] max31790 30-0020: Read fan config for channel 3 failed.
+[   10.648472] max31790 30-0020: Configure for channel@4 failed.
+[   10.661165] max31790 30-0020: Config PWM as TACH failed.
+[   10.673341] max31790 30-002f: Read fan config for channel 3 failed.
+[   10.687201] max31790 30-002f: Configure for channel@4 failed.
+[   10.699896] max31790 30-002f: Config PWM as TACH failed.
+[   10.712076] max31790 31-0020: Read fan config for channel 3 failed.
+[   10.725937] max31790 31-0020: Configure for channel@4 failed.
+[   10.738604] max31790 31-0020: Config PWM as TACH failed.
+[   10.750774] max31790 31-002f: Read fan config for channel 3 failed.
+[   10.764625] max31790 31-002f: Configure for channel@4 failed.
+[   10.777310] max31790 31-002f: Config PWM as TACH failed.
+[   10.800563] tmp421 25-001f: Could not read configuration register (-6)
+[   11.611994] ina233 14-0040: Failed to identify chip capabilities
+[   11.626627] ina233 14-0041: Failed to identify chip capabilities
+[   11.641200] ina233 14-0042: Failed to identify chip capabilities
+[   11.655762] ina233 14-0043: Failed to identify chip capabilities
+[   11.670325] ina233 14-0044: Failed to identify chip capabilities
+[   11.723447] xdp710 11-0011: Can't get CS_RNG
+[   11.733175] xdp710 11-0013: Can't get CS_RNG
+[   11.743738] sq522xx 14-0040: power monitor ina233 (Rshunt = 10000 uOhm)
+[   11.759125] sq522xx 14-0041: power monitor ina233 (Rshunt = 10000 uOhm)
+[   11.774459] sq522xx 14-0042: power monitor ina233 (Rshunt = 10000 uOhm)
+[   11.789761] sq522xx 14-0043: power monitor ina233 (Rshunt = 10000 uOhm)
+[   11.805076] sq522xx 14-0044: power monitor ina233 (Rshunt = 10000 uOhm)
+[   11.820394] device-mapper: ioctl: 4.48.0-ioctl (2023-03-01) initialised: dm-devel@redhat.com
+[   11.840025] EDAC MC0: Giving out device to module aspeed-edac controller MIC: DEV 1e6e0000.sdram (INTERRUPT)
+[   11.862620] sdhci: Secure Digital Host Controller Interface driver
+[   11.876325] sdhci: Copyright(c) Pierre Ossman
+[   11.885944] sdhci-pltfm: SDHCI platform and OF driver helper
+[   11.900725] leds-pca955x 30-0061: leds-pca955x: Using pca9552 16-bit LED driver at slave address 0x61
+[   11.922386] leds-pca955x 30-0061: gpios 2508...2523
+[   11.933428] leds-pca955x 31-0061: leds-pca955x: Using pca9552 16-bit LED driver at slave address 0x61
+[   11.954998] leds-pca955x 31-0061: gpios 2524...2539
+[   11.966354] usbcore: registered new interface driver usbhid
+[   11.978713] usbhid: USB HID core driver
+[   11.994470] max1363 30-0033: supply vcc not found, using dummy regulator
+[   12.011230] max1363 31-0033: supply vcc not found, using dummy regulator
+[   12.029551] NET: Registered PF_INET6 protocol family
+[   12.042224] Segment Routing with IPv6
+[   12.050450] In-situ OAM (IOAM) with IPv6
+[   12.059235] NET: Registered PF_PACKET protocol family
+[   12.070410] 8021q: 802.1Q VLAN Support v1.8
+[   12.079814] Registering SWP/SWPB emulation handler
+[   12.132108] printk: console [netcon0] enabled
+[   12.141787] netconsole: network logging started
+[   12.152498] clk: Disabling unused clocks
+[   12.165321] Freeing unused kernel image (initmem) memory: 1024K
+[   12.182298] Checked W+X mappings: passed, no W+X pages found
+[   12.194846] Run /init as init process
+Starting systemd-udevd version 257.1
+## Error: "openbmcinit" not defined
+## Error: "openbmconce" not defined
+## Error: "openbmconce" not defined
+[   15.554443] ubi0: default fastmap pool size: 25
+[   15.565242] ubi0: default fastmap WL pool size: 12
+[   15.575825] ubi0: attaching mtd5
+[   15.595208] ubi0: scanning is finished
+[   15.611257] ubi0: attached mtd5 (name "rwfs", size 32 MiB)
+[   15.623441] ubi0: PEB size: 65536 bytes (64 KiB), LEB size: 65408 bytes
+[   15.638131] ubi0: min./max. I/O unit sizes: 1/256, sub-page size 1
+[   15.651777] ubi0: VID header offset: 64 (aligned 64), data offset: 128
+[   15.666186] ubi0: good PEBs: 512, bad PEBs: 0, corrupted PEBs: 0
+[   15.679449] ubi0: user volume: 1, internal volumes: 1, max. volumes count: 128
+[   15.695394] ubi0: max/mean erase counter: 1980/404, WL threshold: 4096, image sequence number: 1349698893
+[   15.716525] ubi0: available PEBs: 0, total reserved PEBs: 512, PEBs reserved for bad PEB handling: 0
+[   15.736704] ubi0: background thread "ubi_bgt0d" started, PID 292
+[   15.771256] UBIFS (ubi0:0): Mounting in unauthenticated mode
+[   15.784055] UBIFS (ubi0:0): background thread "ubifs_bgt0_0" started, PID 296
+[   15.802970] UBIFS (ubi0:0): recovery needed
+[   17.667157] UBIFS (ubi0:0): recovery completed
+[   17.677145] UBIFS (ubi0:0): UBIFS: mounted UBI device 0, volume 0, name "rwfs"
+[   17.693106] UBIFS (ubi0:0): LEB size: 65408 bytes (63 KiB), min./max. I/O unit sizes: 8 bytes/256 bytes
+[   17.713851] UBIFS (ubi0:0): FS size: 32442368 bytes (30 MiB, 496 LEBs), max 506 LEBs, journal size 1635200 bytes (1 MiB, 25 LEBs)
+[   17.739613] UBIFS (ubi0:0): reserved for root: 1532332 bytes (1496 KiB)
+[   17.754220] UBIFS (ubi0:0): media format: w5/r0 (latest is w5/r0), UUID BC3E4F0C-7796-4D4C-B30B-673552E33E04, small LPT model
+[   18.158054] systemd[1]: systemd 257.1 running in system mode (+PAM -AUDIT -SELINUX -APPARMOR -IMA +IPE -SMACK +SECCOMP -GCRYPT -GNUTLS -OPENSSL -ACL +BLKID -CURL -ELFUTILS -FIDO2 -IDN2 -IDN -IPTC -KMOD -LIBCRYPTSETUP -LIBC                                       RYPTSETUP_PLUGINS +LIBFDISK -PCRE2 -PWQUALITY -P11KIT -QRENCODE -TPM2 -BZIP2 -LZ4 -XZ -ZLIB +ZSTD -BPF_FRAMEWORK -BTF -XKBCOMMON -UTMP -SYSVINIT -LIBARCHIVE)
+[   18.232568] systemd[1]: Detected architecture arm.
+
+Welcome to Facebook OpenBMC yosemite4-v2025.26.1.b1896!
+
+[   18.288499] systemd[1]: Hostname set to <bmc>.
+[   18.361287] systemd[1]: Using hardware watchdog 'aspeed_wdt', version 0, device /dev/watchdog0
+[   18.380416] systemd[1]: Watchdog running with a hardware timeout of 2min.
+[   18.395485] systemd[1]: Watchdog: reading from /sys/dev/char/247:0/pretimeout_governor
+[   18.413137] systemd[1]: Watchdog: failed to read pretimeout governor: No such file or directory
+[   18.432389] systemd[1]: Watchdog: setting pretimeout_governor to 'panic' via '/sys/dev/char/247:0/pretimeout_governor'
+[   18.456182] systemd[1]: Failed to set watchdog pretimeout_governor to 'panic': No such file or directory
+[   18.477165] systemd[1]: Failed to set watchdog pretimeout governor to 'panic', ignoring: No such file or directory
+[   19.016290] systemd[1]: /etc/systemd/system/syslog.service.d/pidfile.conf:4: PIDFile= references a path below legacy directory /var/run/, updating /var/run/rsyslogd.pid → /run/rsyslogd.pid; please update the unit file acco                                       rdingly.
+[   19.296972] systemd[1]: mctpd.service: Dependency After=mctpd.service is dropped.
+[   26.137258] systemd[1]: Condition check resulted in /dev/tpmrm0 being skipped.
+[   26.217328] systemd[1]: Queued start job for default target Multi-User System.
+[   26.352869] systemd[1]: Created slice Slice /system/fw-versions-mgmt-cpld.
+[  OK  ] Created slice Slice /system/fw-versions-mgmt-cpld.
+[   26.415285] systemd[1]: Created slice Slice /system/fw-versions-nic.
+[  OK  ] Created slice Slice /system/fw-versions-nic.
+[   26.475233] systemd[1]: Created slice Slice /system/fw-versions-spider-cpld.
+[  OK  ] Created slice Slice /system/fw-versions-spider-cpld.
+[   26.535209] systemd[1]: Created slice Slice /system/fw-versions-tpm.
+[  OK  ] Created slice Slice /system/fw-versions-tpm.
+[   26.595123] systemd[1]: Created slice Slice /system/getty.
+[  OK  ] Created slice Slice /system/getty.
+[   26.656239] systemd[1]: Created slice Slice /system/mapper-wait.
+[  OK  ] Created slice Slice /system/mapper-wait.
+[   26.715365] systemd[1]: Created slice Slice /system/modprobe.
+[  OK  ] Created slice Slice /system/modprobe.
+[   26.774725] systemd[1]: Created slice Slice /system/network-wait-ipv6-ll.
+[  OK  ] Created slice Slice /system/network-wait-ipv6-ll.
+[   26.834798] systemd[1]: Created slice Slice /system/phosphor-certificate-manager.
+[  OK  ] Created slice Slice /system/phosphor-certificate-manager.
+[   26.894859] systemd[1]: Created slice Slice /system/phosphor-discover-system-state.
+[  OK  ] Created slice Slice /system/phosphor-discover-system-state.
+[   26.954755] systemd[1]: Created slice Slice /system/phosphor-fan-control.
+[  OK  ] Created slice Slice /system/phosphor-fan-control.
+[   27.014587] systemd[1]: Created slice Slice /system/phosphor-fan-monitor.
+[  OK  ] Created slice Slice /system/phosphor-fan-monitor.
+[   27.074602] systemd[1]: Created slice Slice /system/phosphor-fan-presence-tach.
+[  OK  ] Created slice Slice /system/phosphor-fan-presence-tach.
+[   27.134758] systemd[1]: Created slice Slice /system/phosphor-reset-host-running.
+[  OK  ] Created slice Slice /system/phosphor-reset-host-running.
+[   27.194631] systemd[1]: Created slice Slice /system/serial-getty.
+[  OK  ] Created slice Slice /system/serial-getty.
+[   27.254760] systemd[1]: Created slice Slice /system/xyz.openbmc_project.State.Boot.PostCode.
+[  OK  ] Created slice Slice /system/xyz.openbmc_project.State.Boot.PostCode.
+[   27.324767] systemd[1]: Created slice Slice /system/xyz.openbmc_project.State.Chassis.
+[  OK  ] Created slice Slice /system/xyz.openbmc_project.State.Chassis.
+[   27.394659] systemd[1]: Created slice Slice /system/xyz.openbmc_project.State.Host.
+[  OK  ] Created slice Slice /system/xyz.openbmc_project.State.Host.
+[   27.448629] systemd[1]: Started Dispatch Password Requests to Console Directory Watch.
+[  OK  ] Started Dispatch Password Requests to Console Directory Watch.
+[   27.508537] systemd[1]: Started Forward Password Requests to Wall Directory Watch.
+[  OK  ] Started Forward Password Requests to Wall Directory Watch.
+[   27.568715] systemd[1]: Reached target MCTP local network configuration.
+[  OK  ] Reached target MCTP local network configuration.
+[   27.628421] systemd[1]: Reached target Chassis0 (Reset Check).
+[  OK  ] Reached target Chassis0 (Reset Check).
+[   27.678225] systemd[1]: Reached target Chassis1 (Reset Check).
+[  OK  ] Reached target Chassis1 (Reset Check).
+[   27.728204] systemd[1]: Reached target Chassis2 (Reset Check).
+[  OK  ] Reached target Chassis2 (Reset Check).
+[   27.778255] systemd[1]: Reached target Chassis3 (Reset Check).
+[  OK  ] Reached target Chassis3 (Reset Check).
+[   27.828238] systemd[1]: Reached target Chassis4 (Reset Check).
+[  OK  ] Reached target Chassis4 (Reset Check).
+[   27.878249] systemd[1]: Reached target Chassis5 (Reset Check).
+[  OK  ] Reached target Chassis5 (Reset Check).
+[   27.928242] systemd[1]: Reached target Chassis6 (Reset Check).
+[  OK  ] Reached target Chassis6 (Reset Check).
+[   27.978251] systemd[1]: Reached target Chassis7 (Reset Check).
+[  OK  ] Reached target Chassis7 (Reset Check).
+[   28.028258] systemd[1]: Reached target Chassis8 (Reset Check).
+[  OK  ] Reached target Chassis8 (Reset Check).
+[   28.078352] systemd[1]: Reached target Host1 running after reset.
+[  OK  ] Reached target Host1 running after reset.
+[   28.128219] systemd[1]: Reached target Host2 running after reset.
+[  OK  ] Reached target Host2 running after reset.
+[   28.178215] systemd[1]: Reached target Host3 running after reset.
+[  OK  ] Reached target Host3 running after reset.
+[   28.228184] systemd[1]: Reached target Host4 running after reset.
+[  OK  ] Reached target Host4 running after reset.
+[   28.278189] systemd[1]: Reached target Host5 running after reset.
+[  OK  ] Reached target Host5 running after reset.
+[   28.328183] systemd[1]: Reached target Host6 running after reset.
+[  OK  ] Reached target Host6 running after reset.
+[   28.378184] systemd[1]: Reached target Host7 running after reset.
+[  OK  ] Reached target Host7 running after reset.
+[   28.428182] systemd[1]: Reached target Host8 running after reset.
+[  OK  ] Reached target Host8 running after reset.
+[   28.478596] systemd[1]: Reached target Path Units.
+[  OK  ] Reached target Path Units.
+[   28.528253] systemd[1]: Reached target Remote File Systems.
+[  OK  ] Reached target Remote File Systems.
+[   28.578213] systemd[1]: Reached target Slice Units.
+[  OK  ] Reached target Slice Units.
+[   28.628296] systemd[1]: Reached target Swaps.
+[  OK  ] Reached target Swaps.
+[   28.669935] systemd[1]: Listening on Syslog Socket.
+[  OK  ] Listening on Syslog Socket.
+[   28.731476] systemd[1]: Listening on Process Core Dump Socket.
+[  OK  ] Listening on Process Core Dump Socket.
+[   28.785954] systemd[1]: Listening on Credential Encryption/Decryption.
+[  OK  ] Listening on Credential Encryption/Decryption.
+[   28.846075] systemd[1]: Journal Audit Socket was skipped because of an unmet condition check (ConditionSecurity=audit).
+[   28.870985] systemd[1]: Listening on Journal Socket (/dev/log).
+[  OK  ] Listening on Journal Socket (/dev/log).
+[   28.919226] systemd[1]: Listening on Network Service Netlink Socket.
+[  OK  ] Listening on Network Service Netlink Socket.
+[   28.968946] systemd[1]: Listening on udev Control Socket.
+[  OK  ] Listening on udev Control Socket.
+[   29.018816] systemd[1]: Listening on udev Kernel Socket.
+[  OK  ] Listening on udev Kernel Socket.
+[   29.085553] systemd[1]: Created slice Slice /system/obmc-console.
+[  OK  ] Created slice Slice /system/obmc-console.
+[   29.163046] systemd[1]: Created slice Slice /system/sysfs-led.
+[  OK  ] Created slice Slice /system/sysfs-led.
+[   29.219370] systemd[1]: Listening on Journal Sockets.
+[  OK  ] Listening on Journal Sockets.
+[   29.271943] systemd[1]: Huge Pages File System was skipped because of an unmet condition check (ConditionPathExists=/sys/kernel/mm/hugepages).
+[   29.301084] systemd[1]: POSIX Message Queue File System was skipped because of an unmet condition check (ConditionPathExists=/proc/sys/fs/mqueue).
+[   29.335888] systemd[1]: Mounting Kernel Debug File System...
+         Mounting Kernel Debug File System...
+[   29.437071] systemd[1]: Mounting Kernel Trace File System...
+         Mounting Kernel Trace File System...
+[   29.459395] systemd[1]: Mounting Temporary Directory /tmp...
+         Mounting Temporary Directory /tmp...
+[   29.529111] systemd[1]: Starting Load Kernel Module configfs...
+         Starting Load Kernel Module configfs...
+[   29.552662] systemd[1]: Starting Load Kernel Module efi_pstore...
+         Starting Load Kernel Module efi_pstore...
+[   29.679004] systemd[1]: Starting Load Kernel Module fuse...
+         Starting Load Kernel Module fuse...
+[   29.711457] systemd[1]: Starting Journal Service...
+         Starting Journal Service...
+[   29.791230] systemd[1]: Starting Generate network units from Kernel command line...
+         Starting Generate network units from Kernel command line...
+[   29.859008] systemd[1]: Starting Remount Root and Kernel File Systems...
+         Starting Remount Root and Kernel File Systems...
+[   29.906022] systemd-journald[332]: Collecting audit messages is disabled.
+[   29.959046] systemd[1]: Starting Apply Kernel Variables...
+         Starting Apply Kernel Variables...
+[   30.061313] systemd[1]: Starting Create Static Device Nodes in /dev gracefully...
+         Starting Create Static Device Nodes in /dev gracefully...
+[   30.179055] systemd[1]: Starting Load udev Rules from Credentials...
+         Starting Load udev Rules from Credentials...
+[   30.268905] systemd[1]: Starting Coldplug All udev Devices...
+         Starting Coldplug All udev Devices...
+[   30.383344] systemd[1]: Mounted Kernel Debug File System.
+[  OK  ] Mounted Kernel Debug File System.
+[   30.449219] systemd[1]: Mounted Kernel Trace File System.
+[  OK  ] Mounted Kernel Trace File System.
+[   30.519282] systemd[1]: Mounted Temporary Directory /tmp.
+[  OK  ] Mounted Temporary Directory /tmp.
+[   30.590752] systemd[1]: modprobe@configfs.service: Deactivated successfully.
+[   30.629547] systemd[1]: Finished Load Kernel Module configfs.
+[  OK  ] Finished Load Kernel Module configfs.
+[   30.700442] systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+[   30.738337] systemd[1]: Finished Load Kernel Module efi_pstore.
+[  OK  ] Finished Load Kernel Module efi_pstore.
+[   30.810416] systemd[1]: modprobe@fuse.service: Deactivated successfully.
+[   30.839985] systemd[1]: Finished Load Kernel Module fuse.
+[  OK  ] Finished Load Kernel Module fuse.
+[   30.918849] systemd[1]: Finished Generate network units from Kernel command line.
+[  OK  ] Finished Generate network units from Kernel command line.
+[   30.998356] systemd[1]: Finished Remount Root and Kernel File Systems.
+[  OK  ] Finished Remount Root and Kernel File Systems.
+[   31.079460] systemd[1]: Started Journal Service.
+[  OK  ] Started Journal Service.
+[  OK  ] Finished Apply Kernel Variables.
+[  OK  ] Finished Create Static Device Nodes in /dev gracefully.
+[  OK  ] Finished Load udev Rules from Credentials.
+[  OK  ] Reached target Preparation for Network.
+         Mounting Kernel Configuration File System...
+         Starting Flush Journal to Persistent Storage...
+         Starting Netwo[   31.608769] systemd-journald[332]: Received client request to flush runtime journal.
+rk Name Resolution...
+         Starting Network Time Synchronization...
+         Starting Create Static Device Nodes in /dev...
+[  OK  ] Finished Coldplug All udev Devices.
+[  OK  ] Mounted Kernel Configuration File System.
+[  OK  ] Finished Flush Journal to Persistent Storage.
+[  OK  ] Finished Create Static Device Nodes in /dev.
+[  OK  ] Reached target Preparation for Local File Systems.
+         Mounting /var/volatile...
+         Starting Rule-based Manager for Device Events and Files...
+[  OK  ] Mounted /var/volatile.
+         Starting Load/Save OS Random Seed...
+         Starting Bind mount volatile /srv...
+[  OK  ] Finished Load/Save OS Random Seed.
+[   32.466598] overlayfs: failed to set xattr on upper
+[   32.477530] overlayfs: ...falling back to redirect_dir=nofollow.
+[   32.490887] overlayfs: ...falling back to uuid=null.
+[  OK  ] Started Rule-based Manager for Device Events and Files.
+[  OK  ] Finished Bind mount volatile /srv.
+[  OK  ] Reached target Local File Systems.
+         Starting Create System Files and Directories...
+[  OK  ] Started Network Time Synchronization.
+[  OK  ] Started Network Name Resolution.
+[  OK  ] Finished Create System Files and Directories.
+[  OK  ] Reached target Host and Network Name Lookups.
+[  OK  ] Reached target System Time Set.
+[  OK  ] Reached target Trusted Platform Module.
+         Starting Load Kernel Module efi_pstore...
+         Starting Load Kernel Module fuse...
+[  OK  ] Finished Load Kernel Module efi_pstore.
+[  OK  ] Finished Load Kernel Module fuse.
+[  OK  ] Created slice Slice /system/xyz.openbmc_project.Hwmon.
+         Starting Load Kernel Module efi_pstore...
+         Starting Load Kernel Module fuse...
+[  OK  ] Finished Load Kernel Module efi_pstore.
+[  OK  ] Finished Load Kernel Module fuse.
+[  OK  ] Reached target System Initialization.
+[  OK  ] Started Conditionally set the fans…o manual mode 5 minutes after boot.
+[  OK  ] Started Daily rotation of log files.
+[  OK  ] Started Monitor nic temp sensors every 5 minutes.
+[  OK  ] Started Monitor pldm sensors every 5 minutes.
+[  OK  ] Started Run rotate-event-logs.service every minute.
+[  OK  ] Started Check sensors every 2 minutes.
+[  OK  ] Started Daily Cleanup of Temporary Directories.
+[  OK  ] Reached target Timer Units.
+[  OK  ] Listening on BMC Webserver socket.
+[  OK  ] Listening on D-Bus System Message Bus Socket.
+[  OK  ] Listening on OpenSSH Server Socket…temd-ssh-generator, AF_UNIX Local).
+         Starting sshd.socket...
+[  OK  ] Listening on Hostname Service Socket.
+         Starting D-Bus System Message Bus...
+[  OK  ] Listening on sshd.socket.
+[  OK  ] Started D-Bus System Message Bus.
+[  OK  ] Reached target Socket Units.
+[  OK  ] Reached target Basic System.
+         Starting Clear one time boot overrides...
+         Starting Set fans to manual mode if environment variable exists...
+[  OK  ] Started LPC Snoop Daemon.
+         Starting Wait IPv6 link-local initialization...
+         Starting Wait IPv6 link-local initialization...
+         Starting Monitor nic temp sensors...
+[   40.179537] 8021q: adding VLAN 0 to HW filter on device eth0
+[   40.192785] ftgmac100 1e670000.ethernet eth0: Link is Up - 100Mbps/Full - flow control off
+[   40.249668] 8021q: adding VLAN 0 to HW filter on device eth1
+[   40.262495] ftgmac100 1e690000.ethernet eth1: Link is Up - 100Mbps/Full - flow control off
+[  OK  ] Started ttyS0 Console Server.
+[  OK  ] Started ttyS1 Console Server.
+[  OK  ] Started ttyS2 Console Server.
+[  OK  ] Started ttyS3 Console Server.
+[  OK  ] Started ttyS5 Console Server.
+[  OK  ] Started ttyS6 Console Server.
+[  OK  ] Started ttyS7 Console Server.
+[  OK  ] Started ttyS8 Console Server.
+[   41.198863] ftgmac100 1e690000.ethernet eth1: NCSI: Handler for packet type 0x82 returned -19
+[  OK  ] Started Phosphor Dump core monitor..
+[  OK  ] Started Phosphor certificate manager for authority.
+[  OK  ] Started Phosphor certificate manager for bmcweb.
+[  OK  ] Started Phosphor certificate manager for nslcd.
+[  OK  ] Started Phosphor DBus Monitor.
+[  OK  ] Started Phosphor Fan Control Daemon.
+[  OK  ] Started Phosphor Fan Monitor Daemon.
+[  OK  ] Started Phosphor Fan Presence Tach Daemon.
+         Starting BMC health monitoring...
+         Starting Phosphor Sysfs LED Controller...
+         Starting Virtual sensors...
+         Starting Phosphor Watchdog...
+         Starting Phosphor PLDM Daemon...
+         Starting Rotates the event logs...
+         Starting Enable Linux trace events in the boot loader...
+         Starting Phosphor Buttons...
+         Starting Phosphor Dump Manager...
+         Starting Entity Manager...
+[  OK  ] Started Fru Device.
+         Starting Phosphor Inventory Manager...
+[  OK  ] Started IPMI SEL Logging Service.
+         Starting Phosphor Log Manager...
+         Starting Phosphor SNMP conf Manager...
+         Starting Phosphor DBus Service Discovery Manager...
+         Starting Phosphor Settings Daemon...
+         Starting Phosphor Download Manager...
+         Starting Phosphor Software Manager...
+         Starting Post code manager (host 1)...
+         Starting Post code manager (host 2)...
+         Starting Post code manager (host 3)...
+         Starting Post code manager (host 4)...
+         Starting Post code manager (host 5)...
+         Starting Post code manager (host 6)...
+         Starting Post code manager (host 7)...
+         Starting Post code manager (host 8)...
+         Starting Phosphor Chassis0 State Manager...
+         Starting Phosphor Chassis1 State Manager...
+         Starting Phosphor Chassis2 State Manager...
+         Starting Phosphor Chassis3 State Manager...
+         Starting Phosphor Chassis4 State Manager...
+         Starting Phosphor Chassis5 State Manager...
+         Starting Phosphor Chassis6 State Manager...
+         Starting Phosphor Chassis7 State Manager...
+         Starting Phosphor Chassis8 State Manager...
+         Starting Rsyslog config updater...
+         Starting Telemetry...
+         Starting Phosphor User Manager...
+         Starting GPIO Presence Sensor...
+         Starting Yosemite4 Early System Init...
+         Starting OpenSSH Key Generation...
+[  OK  ] Finished Set fans to manual mode if environment variable exists.
+[  OK  ] Finished Wait IPv6 link-local initialization.
+[  OK  ] Finished Rotates the event logs.
+[  OK  ] Finished Enable Linux trace events in the boot loader.
+[  OK  ] Finished OpenSSH Key Generation.
+[  OK  ] Finished Clear one time boot overrides.
+[  OK  ] Started BMC health monitoring.
+[  OK  ] Started Phosphor Sysfs LED Controller.
+[  OK  ] Started Phosphor Watchdog.
+[  OK  ] Started Phosphor Buttons.
+[  OK  ] Started Phosphor Inventory Manager.
+[  OK  ] Started Phosphor SNMP conf Manager.
+[  OK  ] Started Phosphor DBus Service Discovery Manager.
+[  OK  ] Started Phosphor Download Manager.
+[  OK  ] Started Phosphor Settings Daemon.
+[  OK  ] Started Post code manager (host 1).
+[  OK  ] Started Post code manager (host 2).
+[  OK  ] Started Post code manager (host 3).
+[  OK  ] Started Phosphor PLDM Daemon.
+[  OK  ] Started Post code manager (host 4).
+[  OK  ] Started Post code manager (host 5).
+[  OK  ] Started Post code manager (host 7).
+[  OK  ] Started Post code manager (host 6).
+[  OK  ] Started Post code manager (host 8).
+[  OK  ] Started Rsyslog config updater.
+[  OK  ] Started Telemetry.
+[  OK  ] Started GPIO Presence Sensor.
+[  OK  ] Started Phosphor Software Manager.
+[  OK  ] Started Virtual sensors.
+[  OK  ] Started Entity Manager.
+[  OK  ] Started Phosphor Dump Manager.
+[  OK  ] Started Phosphor User Manager.
+[  OK  ] Started Phosphor Log Manager.
+         Starting FW Version Fetch for nic...
+         Starting FW Version Fetch for nic...
+         Starting FW Version Fetch for nic...
+         Starting FW Version Fetch for nic...
+[   50.533275] i3c i3c-0: Enabling PEC workaround. IBI payloads will be truncated
+         Starting FW Version Fetch for tpm...
+[  OK  ] Started Phosphor Button Handler.
+         Starting Phosphor Inband IPMI...
+[  OK  ] Started phosphor systemd target monitor.
+[  OK  ] Started Sensor Monitor.
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor Sysfs - Add LED...
+         Starting Phosphor LED Group Management Daemon...
+         Starting Wait for /xyz/openbmc_project/control/host1/auto_reboot...
+         Starting Wait for /xyz/openbmc_pro…ntrol/host1/power_restore_policy...
+         Starting Wait for /xyz/openbmc_project/control/host2/auto_reboot...
+         Starting Wait for /xyz/openbmc_pro…ntrol/host2/power_restore_policy...
+         Starting Wait for /xyz/openbmc_project/control/host3/auto_reboot...
+         Starting Wait for /xyz/openbmc_pro…ntrol/host3/power_restore_policy...
+         Starting Wait for /xyz/openbmc_project/control/host4/auto_reboot...
+         Starting Wait for /xyz/openbmc_pro…ntrol/host4/power_restore_policy...
+         Starting Wait for /xyz/openbmc_project/control/host5/auto_reboot...
+         Starting Wait for /xyz/openbmc_pro…ntrol/host5/power_restore_policy...
+         Starting Wait for /xyz/openbmc_project/control/host6/auto_reboot...
+         Starting Wait for /xyz/openbmc_pro…ntrol/host6/power_restore_policy...
+         Starting Wait for /xyz/openbmc_project/control/host7/auto_reboot...
+         Starting Wait for /xyz/openbmc_pro…ntrol/host7/power_restore_policy...
+         Starting Wait for /xyz/openbmc_project/control/host8/auto_reboot...
+         Starting Wait for /xyz/openbmc_pro…ntrol/host8/power_restore_policy...
+         Starting Wait for /xyz/openbmc_project/state/bmc0...
+         Starting Wait for /xyz/openbmc_project/state/host1...
+         Starting Wait for /xyz/openbmc_project/state/host2...
+         Starting Wait for /xyz/openbmc_project/state/host3...
+         Starting Wait for /xyz/openbmc_project/state/host4...
+[   55.929293] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   55.947046] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   55.964868] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   55.982700] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   56.002321] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   56.020151] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   56.038043] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   56.048069] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   56.077287] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   56.104052] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   56.127605] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   56.127770] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   56.170737] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+[   56.188620] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+         Startin[   56.206397] ftgmac100 1e690000.ethernet eth1: NCSI: 'bad' packet ignored for type 0x8b
+g Wait for /xyz/openbmc_project/state/host5...
+         Starting Wait for /xyz/openbmc_project/state/host6...
+         Starting Wait for /xyz/openbmc_project/state/host7...
+         Starting Wait for /xyz/openbmc_project/state/host8...
+         Starting Wait for /xyz/openbmc_project/time/sync_method...
+         Starting Adc Sensor...
+         Starting Hwmon Temp Sensor...
+         Starting PSU Sensor...
+         Starting Yosemite4 Schematic Init...
+[   57.917983] ftgmac100 1e670000.ethernet eth0: NCSI: No channel found to configure!
+[  OK  ] Finished Yosemite4 Early System Init.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Phosphor Sysfs - Add LED.
+[  OK  ] Finished Wait for /xyz/openbmc_project/control/host1/auto_reboot.
+[  OK  ] Finished Wait for /xyz/openbmc_pro…control/host1/power_restore_policy.
+[  OK  ] Finished Wait for /xyz/openbmc_project/control/host2/auto_reboot.
+[  OK  ] Finished Wait for /xyz/openbmc_pro…control/host2/power_restore_policy.
+[  OK  ] Finished Wait for /xyz/openbmc_project/control/host3/auto_reboot.
+[  OK  ] Finished Wait for /xyz/openbmc_pro…control/host3/power_restore_policy.
+[  OK  ] Finished Wait for /xyz/openbmc_project/control/host4/auto_reboot.
+[  OK  ] Finished Wait for /xyz/openbmc_pro…control/host4/power_restore_policy.
+[  OK  ] Finished Wait for /xyz/openbmc_project/control/host5/auto_reboot.
+[  OK  ] Finished Wait for /xyz/openbmc_pro…control/host5/power_restore_policy.
+[  OK  ] Finished Wait for /xyz/openbmc_project/control/host6/auto_reboot.
+[  OK  ] Finished Wait for /xyz/openbmc_pro…control/host6/power_restore_policy.
+[  OK  ] Finished Wait for /xyz/openbmc_project/control/host7/auto_reboot.
+[  OK  ] Finished Wait for /xyz/openbmc_pro…control/host7/power_restore_policy.
+[  OK  ] Finished Wait for /xyz/openbmc_project/control/host8/auto_reboot.
+[  OK  ] Finished Wait for /xyz/openbmc_pro…control/host8/power_restore_policy.
+[  OK  ] Started Phosphor Chassis2 State Manager.
+[  OK  ] Started Phosphor Chassis3 State Manager.
+[  OK  ] Started Phosphor Chassis1 State Manager.
+[  OK  ] Started Phosphor Chassis0 State Manager.
+[  OK  ] Started Phosphor Chassis5 State Manager.
+[  OK  ] Started Phosphor Chassis4 State Manager.
+[  OK  ] Started Phosphor Inband IPMI.
+[  OK  ] Started Phosphor Chassis6 State Manager.
+[  OK  ] Started Phosphor Chassis7 State Manager.
+[  OK  ] Finished Wait for /xyz/openbmc_project/time/sync_method.
+[  OK  ] Started Phosphor Chassis8 State Manager.
+[  OK  ] Started Phosphor LED Group Management Daemon.
+[  OK  ] Started Adc Sensor.
+[  OK  ] Started Hwmon Temp Sensor.
+[  OK  ] Started PSU Sensor.
+[  OK  ] Finished Monitor nic temp sensors.
+         Starting FW Version Fetch for mgmt-cpld...
+         Starting FW Version Fetch for spider-cpld...
+[  OK  ] Started IPMB bridge.
+         Starting Wait for /xyz/openbmc_project/state/chassis1...
+         Starting Wait for /xyz/openbmc_project/state/chassis2...
+         Starting Wait for /xyz/openbmc_project/state/chassis3...
+         Starting Wait for /xyz/openbmc_project/state/chassis4...
+         Starting Wait for /xyz/openbmc_project/state/chassis5...
+         Starting Wait for /xyz/openbmc_project/state/chassis6...
+         Starting Wait for /xyz/openbmc_project/state/chassis7...
+         Starting Wait for /xyz/openbmc_project/state/chassis8...
+         Starting MCTP control protocol daemon...
+[  OK  ] Started Phosphor Multi GPIO monitor.
+         Starting TPM2 Access Broker and Resource Management Daemon...
+         Starting Phosphor BMC State Manager...
+         Starting Phosphor Time Manager daemon...
+         Starting Fan Sensor...
+[  OK  ] Started Yosemite4 Medusa Event.
+[  OK  ] Finished FW Version Fetch for mgmt-cpld.
+[  OK  ] Finished FW Version Fetch for spider-cpld.
+[  OK  ] Started Fan Sensor.
+[  OK  ] Started Phosphor BMC State Manager.
+[  OK  ] Started TPM2 Access Broker and Resource Management Daemon.
+[  OK  ] Finished FW Version Fetch for tpm.
+[FAILED] Failed to start Wait IPv6 link-local initialization.
+See 'systemctl status network-wait-ipv6-ll@eth0.service' for details.
+         Starting Network Configuration...
+[  OK  ] Started Network Configuration.
+[  OK  ] Reached target Network.
+[  OK  ] Started Start bmcwebd server.
+         Starting Enable Persistent Storage in systemd-networkd...
+         Starting Wait for Network to be Configured...
+         Starting Permit User Sessions...
+         Starting Phosphor Network Manager...
+[  OK  ] Finished Permit User Sessions.
+[  OK  ] Started Serial Getty on ttyS4.
+[  OK  ] Reached target Login Prompts.
+         Starting Hostname Service...
+[  OK  ] Finished Enable Persistent Storage in systemd-networkd.
+[  OK  ] Started Hostname Service.
+[  OK  ] Started Phosphor Network Manager.
+[  OK  ] Finished Wait for Network to be Configured.
+[  OK  ] Reached target Network is Online.
+         Starting System Logging Service...
+[  OK  ] Started System Logging Service.
+[  OK  ] Finished Wait for /xyz/openbmc_project/state/chassis1.
+[  OK  ] Finished Wait for /xyz/openbmc_project/state/chassis2.
+[  OK  ] Finished Wait for /xyz/openbmc_project/state/chassis3.
+[  OK  ] Finished Wait for /xyz/openbmc_project/state/chassis4.
+[  OK  ] Finished Wait for /xyz/openbmc_project/state/chassis5.
+[  OK  ] Finished Wait for /xyz/openbmc_project/state/chassis6.
+[  OK  ] Finished Wait for /xyz/openbmc_project/state/chassis7.
+[  OK  ] Finished Wait for /xyz/openbmc_project/state/chassis8.
+
+OpenBMC Release yosemite4-v2025.26.1.b1896
+
+bmc login: [   88.592948] ina238 11-0044: power monitor ina238 (Rshunt = 10000 uOhm, gain = 4)
+[   88.609604] i2c i2c-11: new_device: Instantiated device ina238 at 0x44
+

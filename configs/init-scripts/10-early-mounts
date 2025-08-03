@@ -1,0 +1,28 @@
+#!/bin/sh
+# 10-early-mounts - 掛載基本的虛擬檔案系統
+# 這是 static-norootfs 初始化的第一步
+
+echo "Mounting early filesystems..."
+
+# 掛載基本的虛擬檔案系統
+mount -t devtmpfs devtmpfs /dev
+mount -t sysfs sysfs /sys
+mount -t proc proc /proc
+
+# 掛載運行時檔案系統 (tmpfs)
+mount -t tmpfs tmpfs /run -o mode=755,nodev,nosuid,strictatime
+
+# 建立基本的運行時目錄
+mkdir -p /run/lock
+mkdir -p /run/log  
+mkdir -p /run/mnt-persist
+
+# 設定正確的權限
+chmod 755 /run/lock
+chmod 755 /run/log
+chmod 755 /run/mnt-persist
+
+# 建立 udev 需要的目錄
+mkdir -p /run/udev
+
+echo "Early filesystems mounted successfully"
