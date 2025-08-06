@@ -1,0 +1,571 @@
+// SPDX-License-Identifier: GPL-2.0+
+/dts-v1/;
+
+#include "aspeed-g6.dtsi"
+#include <dt-bindings/gpio/aspeed-gpio.h>
+#include <dt-bindings/leds/leds-pca955x.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+
+/ {
+	model = "Facebook Yosemite 4 BMC";
+	compatible = "facebook,yosemite4-bmc", "aspeed,ast2620";
+
+	aliases {
+		serial0 = &uart1;
+		serial1 = &uart2;
+		serial2 = &uart3;
+		serial3 = &uart4;
+		serial4 = &uart5;
+		
+		/*
+		 * Yosemite4 具有多個主機，每個都有自己的 UART
+		 * 使用 uart5 作為 BMC 控制台 (ttyS4)
+		 */
+		serial5 = &vuart1;
+		serial6 = &vuart2;
+		
+		i2c0 = &i2c0;
+		i2c1 = &i2c1;
+		i2c2 = &i2c2;
+		i2c3 = &i2c3;
+		i2c4 = &i2c4;
+		i2c5 = &i2c5;
+		i2c6 = &i2c6;
+		i2c7 = &i2c7;
+		i2c8 = &i2c8;
+		i2c9 = &i2c9;
+		i2c10 = &i2c10;
+		i2c11 = &i2c11;
+		i2c12 = &i2c12;
+		i2c13 = &i2c13;
+		i2c14 = &i2c14;
+		i2c15 = &i2c15;
+	};
+
+	chosen {
+		stdout-path = "serial4:57600n8";
+		bootargs = "console=ttyS4,57600n8 root=/dev/ram rw vmalloc=768M";
+	};
+
+	memory@80000000 {
+		device_type = "memory";
+		reg = <0x80000000 0x40000000>; /* 1024MB */
+	};
+
+	reserved-memory {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+
+		/* 為圖形緩衝區保留記憶體 */
+		vga_memory: region@bf000000 {
+			no-map;
+			compatible = "shared-dma-pool";
+			reg = <0xbf000000 0x01000000>; /* 16MB */
+		};
+
+		/* CMA 區域 */
+		linux,cma {
+			compatible = "shared-dma-pool";
+			reusable;
+			size = <0x01000000>; /* 16MB */
+			alignment = <0x01000000>;
+		};
+	};
+
+	/* GPIO 按鈕和控制 */
+	gpio-keys {
+		compatible = "gpio-keys";
+
+		/* BMC 重置按鈕 */
+		bmc-reset {
+			label = "bmc-reset";
+			gpios = <&gpio0 ASPEED_GPIO(AC, 0) GPIO_ACTIVE_LOW>;
+			linux,code = <KEY_RESTART>;
+		};
+	};
+
+	/* LED 控制 */
+	leds {
+		compatible = "gpio-leds";
+
+		/* BMC 心跳燈 */
+		bmc-heartbeat {
+			label = "bmc:heartbeat";
+			gpios = <&gpio0 ASPEED_GPIO(P, 7) GPIO_ACTIVE_HIGH>;
+			linux,default-trigger = "heartbeat";
+		};
+
+		/* 系統狀態燈 */
+		system-status {
+			label = "system:status";
+			gpios = <&gpio0 ASPEED_GPIO(S, 6) GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		/* 故障指示燈 */
+		fault-led {
+			label = "system:fault";
+			gpios = <&gpio0 ASPEED_GPIO(S, 7) GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+	};
+
+	/* 電源控制 */
+	power-control {
+		compatible = "gpio-poweroff";
+		gpios = <&gpio0 ASPEED_GPIO(AC, 2) GPIO_ACTIVE_LOW>;
+		force-off;
+	};
+
+	/* 風扇控制 */
+	pwm-fan {
+		compatible = "pwm-fan";
+		pwms = <&pwm 0 25000>;
+		cooling-min-state = <0>;
+		cooling-max-state = <3>;
+		#cooling-cells = <2>;
+		cooling-levels = <0 102 170 230 255>;
+	};
+
+	/* 虛擬 UART 用於主機控制台重定向 */
+	iio-hwmon-battery {
+		compatible = "iio-hwmon";
+		io-channels = <&adc0 0>, <&adc0 1>, <&adc0 2>, <&adc0 3>,
+			      <&adc0 4>, <&adc0 5>, <&adc0 6>, <&adc0 7>,
+			      <&adc1 0>, <&adc1 1>, <&adc1 2>, <&adc1 3>,
+			      <&adc1 4>, <&adc1 5>, <&adc1 6>, <&adc1 7>;
+	};
+};
+
+/* SPI Flash 配置 */
+&fmc {
+	status = "okay";
+	
+	flash@0 {
+		status = "okay";
+		m25p,fast-read;
+		label = "bmc";
+		spi-max-frequency = <50000000>;
+		
+		/* 128MB SPI NOR Flash 分割區 (基於實際 log) */
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			u-boot@0 {
+				reg = <0x0 0xe0000>; /* 896KB */
+				label = "u-boot";
+			};
+
+			u-boot-env@e0000 {
+				reg = <0xe0000 0x20000>; /* 128KB */
+				label = "u-boot-env";
+			};
+
+			kernel@100000 {
+				reg = <0x100000 0x900000>; /* 9MB for kernel */
+				label = "kernel";
+			};
+
+			rofs@a00000 {
+				reg = <0xa00000 0x5600000>; /* 86MB for rofs */
+				label = "rofs";
+			};
+
+			rwfs@6000000 {
+				reg = <0x6000000 0x2000000>; /* 32MB for rwfs */
+				label = "rwfs";
+			};
+		};
+	};
+};
+
+/* SPI 裝置 */
+&spi1 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_spi1_default>;
+	
+	/* TPM 2.0 模組 */
+	tpm@0 {
+		compatible = "tcg,tpm_tis-spi";
+		reg = <0>;
+		spi-max-frequency = <33000000>;
+	};
+};
+
+/* MAC 網路配置 */
+&mac0 {
+	status = "okay";
+	phy-mode = "rmii";
+	
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_rmii1_default>;
+	
+	/* 使用 NCSI (Network Controller Sideband Interface) */
+	use-ncsi;
+};
+
+&mac1 {
+	status = "okay";
+	phy-mode = "rmii";
+	
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_rmii2_default>;
+	
+	use-ncsi;
+};
+
+&mac2 {
+	status = "okay";
+	phy-mode = "rmii";
+	
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_rmii3_default>;
+	
+	use-ncsi;
+};
+
+&mac3 {
+	status = "okay";
+	phy-mode = "rmii";
+	
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_rmii4_default>;
+	
+	use-ncsi;
+};
+
+/* UART 配置 */
+&uart1 {
+	status = "okay";
+};
+
+&uart2 {
+	status = "okay";
+};
+
+&uart3 {
+	status = "okay";
+};
+
+&uart4 {
+	status = "okay";
+};
+
+&uart5 {
+	status = "okay";
+	/* BMC 控制台，57600 baud rate */
+};
+
+/* 虛擬 UART 用於主機控制台重定向 */
+&vuart1 {
+	status = "okay";
+	aspeed,lpc-io-reg = <0x2f8>;
+	aspeed,lpc-interrupts = <3 IRQ_TYPE_LEVEL_HIGH>;
+};
+
+&vuart2 {
+	status = "okay";
+	aspeed,lpc-io-reg = <0x3f8>;
+	aspeed,lpc-interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
+};
+
+/* I2C 裝置配置 */
+&i2c0 {
+	status = "okay";
+	/* 主機板溫度感測器 */
+	
+	temp@48 {
+		compatible = "national,lm75";
+		reg = <0x48>;
+	};
+	
+	temp@4a {
+		compatible = "national,lm75";
+		reg = <0x4a>;
+	};
+};
+
+&i2c1 {
+	status = "okay";
+	/* CPU 溫度感測器 */
+	
+	temp@4c {
+		compatible = "national,lm75";
+		reg = <0x4c>;
+	};
+};
+
+&i2c2 {
+	status = "okay";
+	/* 記憶體溫度感測器 */
+	
+	temp@49 {
+		compatible = "national,lm75";
+		reg = <0x49>;
+	};
+};
+
+&i2c3 {
+	status = "okay";
+	/* 電源監控 */
+	
+	power-monitor@40 {
+		compatible = "ti,ina219";
+		reg = <0x40>;
+		shunt-resistor = <1000>; /* 1mOhm */
+	};
+};
+
+&i2c4 {
+	status = "okay";
+	/* EEPROM 儲存 */
+	
+	eeprom@50 {
+		compatible = "atmel,24c256";
+		reg = <0x50>;
+		pagesize = <64>;
+	};
+};
+
+&i2c5 {
+	status = "okay";
+	/* 風扇控制器 */
+	
+	fan-controller@2e {
+		compatible = "maxim,max31790";
+		reg = <0x2e>;
+	};
+};
+
+&i2c6 {
+	status = "okay";
+	/* GPIO 擴展器 */
+	
+	gpio@20 {
+		compatible = "nxp,pca9555";
+		reg = <0x20>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		interrupt-parent = <&gpio0>;
+		interrupts = <ASPEED_GPIO(B, 4) IRQ_TYPE_LEVEL_LOW>;
+	};
+};
+
+&i2c7 {
+	status = "okay";
+	/* 額外的感測器 */
+};
+
+&i2c8 {
+	status = "okay";
+	/* 主機板監控 */
+};
+
+&i2c9 {
+	status = "okay";
+	/* 擴展槽監控 */
+};
+
+&i2c10 {
+	status = "okay";
+	/* PSU 監控 */
+};
+
+&i2c11 {
+	status = "okay";
+	/* 系統管理 */
+};
+
+&i2c12 {
+	status = "okay";
+	/* Debug 介面 */
+};
+
+&i2c13 {
+	status = "okay";
+	/* 預留 */
+};
+
+&i2c14 {
+	status = "okay";
+	/* 預留 */
+};
+
+&i2c15 {
+	status = "okay";
+	/* 預留 */
+};
+
+/* eMMC/SD 配置 */
+&sdhci0 {
+	status = "okay";
+	
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_sd1_default>;
+	
+	/* 外部 SD 卡槽 */
+	cd-gpios = <&gpio0 ASPEED_GPIO(G, 5) GPIO_ACTIVE_LOW>;
+	disable-wp;
+};
+
+&sdhci1 {
+	status = "okay";
+	
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_sd2_default>;
+	
+	/* 內部 eMMC */
+	bus-width = <4>;
+	non-removable;
+};
+
+/* ADC 配置 */
+&adc0 {
+	status = "okay";
+	aspeed,int-vref-microvolt = <2500000>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_adc0_default &pinctrl_adc1_default
+		     &pinctrl_adc2_default &pinctrl_adc3_default
+		     &pinctrl_adc4_default &pinctrl_adc5_default
+		     &pinctrl_adc6_default &pinctrl_adc7_default>;
+};
+
+&adc1 {
+	status = "okay";
+	aspeed,int-vref-microvolt = <2500000>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_adc8_default &pinctrl_adc9_default
+		     &pinctrl_adc10_default &pinctrl_adc11_default
+		     &pinctrl_adc12_default &pinctrl_adc13_default
+		     &pinctrl_adc14_default &pinctrl_adc15_default>;
+};
+
+/* PWM 配置 */
+&pwm {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
+		     &pinctrl_pwm2_default &pinctrl_pwm3_default>;
+};
+
+/* 看門狗 */
+&wdt1 {
+	status = "okay";
+	aspeed,reset-type = "none";
+	aspeed,external-signal;
+	aspeed,ext-push-pull;
+	aspeed,ext-active-high;
+	
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_wdtrst1_default>;
+};
+
+&wdt2 {
+	status = "okay";
+	aspeed,reset-type = "soc";
+	aspeed,external-signal;
+	aspeed,ext-push-pull;
+	aspeed,ext-active-high;
+	
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_wdtrst2_default>;
+};
+
+/* JTAG 介面 */
+&jtag0 {
+	status = "okay";
+};
+
+&jtag1 {
+	status = "okay";
+};
+
+/* LPC 介面 */
+&lpc_ctrl {
+	status = "okay";
+	memory-region = <&flash_memory>;
+	flash = <&spi1>;
+};
+
+&lpc_snoop {
+	status = "okay";
+	snoop-ports = <0x80>;
+};
+
+/* KCS IPMI 介面 */
+&kcs1 {
+	status = "okay";
+	aspeed,lpc-io-reg = <0xca0>;
+};
+
+&kcs2 {
+	status = "okay";
+	aspeed,lpc-io-reg = <0xca8>;
+};
+
+&kcs3 {
+	status = "okay";
+	aspeed,lpc-io-reg = <0xca2>;
+};
+
+/* 系統 GPIO */
+&gpio0 {
+	status = "okay";
+	gpio-line-names =
+		"","","","","","","","",
+		"","","","","","","","",
+		"","","","","","","","",
+		"","","","","","","","",
+		/* 32-39 */
+		"","","","","","","","",
+		/* 40-47 */
+		"","","","","","","","",
+		/* 48-55 */
+		"","","","","","","","",
+		/* 56-63 */
+		"","","","","","","","",
+		/* 64-71 */
+		"","","","","","","","",
+		/* 72-79 */
+		"","","","","","","","",
+		/* 80-87 */
+		"","","","","","","","",
+		/* 88-95 */
+		"","","","","","","","",
+		/* 96-103 */
+		"","","","","","","","",
+		/* 104-111 */
+		"","","","","","","","",
+		/* 112-119 */
+		"","","","","","","","",
+		/* 120-127 */
+		"","","","","","","","",
+		/* 128-135 */
+		"","","","","","","","",
+		/* 136-143 */
+		"","","","","","","","",
+		/* 144-151 */
+		"","","","","","","","",
+		/* 152-159 */
+		"","","","","","","","",
+		/* 160-167 */
+		"","","","","","","","",
+		/* 168-175 */
+		"","","","","","","","",
+		/* 176-183 */
+		"","","","","","","","",
+		/* 184-191 */
+		"","","","","","","","",
+		/* 192-199 */
+		"","","","","","","","",
+		/* 200-207 */
+		"","","","","","","","",
+		/* 208-215 */
+		"bmc-ready","","","","","","","",
+		/* 216-223 */
+		"","","","","","","","";
+};

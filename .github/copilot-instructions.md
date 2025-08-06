@@ -11,14 +11,14 @@
 - 比較與傳統 switch_root 架構的差異
 
 ## 主要研究範圍
-1. Yosemite4 硬體架構 (AST2600 BMC)
+1. Yosemite4 硬體架構 (AST2620-A3 BMC)
 2. OpenBMC phosphor-static-norootfs 實作
 3. 檔案系統掛載順序和 overlay 機制
 4. U-Boot, 核心, initramfs 載入流程
 5. systemd 服務啟動順序
 
 ## 技術堆疊
-- **硬體**: ASPEED AST2600 BMC SoC
+- **硬體**: ASPEED AST2620-A3 BMC SoC
 - **韌體**: U-Boot SPL + U-Boot Proper
 - **作業系統**: OpenBMC (Yocto-based Linux)
 - **檔案系統**: static-norootfs + OverlayFS + UBIFS
@@ -43,5 +43,5 @@
 ## 參考資源
 - OpenBMC GitHub Repository
 - Facebook OpenBMC Meta-layers
-- ASPEED AST2600 技術文件
+- ASPEED AST2620-A3 技術文件
 - Yocto Project 文件

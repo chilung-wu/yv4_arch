@@ -35,20 +35,24 @@ Facebook Yosemite4 是基於 ASPEED AST2620-A3 SoC 的 BMC (Baseboard Management
 
 ### 🗂️ 儲存系統
 
-#### 主要 Flash 儲存
+#### 主要 Flash 儲存 (基於實際分割區)
 ```
 ┌─────────────────────────────────────────┐
 │          Flash 分割區配置                │
 ├─────────────────────────────────────────┤
 │ 總容量: 128MB SPI NOR Flash             │
-│ ├── U-Boot SPL:         512KB           │
-│ ├── U-Boot Proper:      512KB           │
-│ ├── U-Boot 環境變數:    128KB           │
-│ ├── FIT Image:          ~80MB           │
-│ │   ├── Kernel:         ~10MB           │
-│ │   ├── Device Tree:    ~64KB           │
-│ │   └── Initramfs:      ~70MB           │
-│ ├── 持久化分割區 (UBI): ~40MB           │
+│ ├── u-boot:            896KB            │
+│ │   (0x000000000000-0x0000000e0000)     │
+│ ├── u-boot-env:        128KB            │
+│ │   (0x0000000e0000-0x000000100000)     │
+│ ├── kernel:            9MB              │
+│ │   (0x000000100000-0x000000a00000)     │
+│ ├── rofs:              86MB             │
+│ │   (0x000000a00000-0x000006000000)     │
+│ └── rwfs:              32MB             │
+│     (0x000006000000-0x000008000000)     │
+└─────────────────────────────────────────┘
+```
 │ └── 保留空間:           ~7MB            │
 └─────────────────────────────────────────┘
 ```
@@ -62,7 +66,7 @@ Facebook Yosemite4 是基於 ASPEED AST2620-A3 SoC 的 BMC (Baseboard Management
 ### 🌐 網路介面
 
 #### 主要網路控制器
-- **Ethernet MAC**: AST2600 內建 RMII/RGMII
+- **Ethernet MAC**: AST2620-A3 內建 RMII/RGMII
 - **速度**: 10/100/1000 Mbps 自適應
 - **介面**: RJ45 連接器
 - **功能**: 

@@ -129,7 +129,7 @@ graph TD
 ## 開機時序詳細說明
 
 ### 階段 1: 硬體初始化 (0-2 秒)
-- **ROM Code**: ASPEED AST2600 內建 ROM 程式碼執行
+- **ROM Code**: ASPEED AST2620-A3 內建 ROM 程式碼執行
 - **U-Boot SPL**: 在有限的 SRAM 中執行，初始化 DDR4
 - **U-Boot Proper**: 完整的 U-Boot，準備載入作業系統
 

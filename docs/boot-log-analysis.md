@@ -17,7 +17,7 @@ DRAM: already initialized, 910 MiB (capacity:1024 MiB, VGA:0 MiB, ECC:on, ECC si
 
 **驗證結果：** ✅ 確認
 - U-Boot 版本：2019.04 (與文件一致)
-- SOC 型號：AST2620-A3 (實際是 AST2620，非 AST2600)
+- SOC 型號：AST2620-A3
 - 記憶體：910 MiB 可用 (總容量 1024 MiB，ECC 開啟)
 
 ### 2. Linux 核心資訊
@@ -109,14 +109,14 @@ Welcome to Facebook OpenBMC yosemite4-v2025.26.1.b1896!
 ### 1. 硬體規格修正
 
 **SOC 型號更正：**
-- 文件中：AST2600
+- AST2620-A3
 - 實際：AST2620-A3
 
 ### 2. 版本資訊更新
 
 **軟體版本：**
 - U-Boot：2019.04 (正確)
-- Linux：6.6.94 (比文件中的版本更新)
+- Linux：6.6.94-fe092ec-dirty-9fb2cfa
 - systemd：257.1 (較新版本)
 - OpenBMC：yosemite4-v2025.26.1.b1896
 
@@ -152,7 +152,7 @@ Welcome to Facebook OpenBMC yosemite4-v2025.26.1.b1896!
 - systemd 服務管理
 
 ⚠️ **需要更新**：
-- SOC 型號：AST2620-A3 (非 AST2600)
+- SOC 型號：AST2620-A3
 - 軟體版本資訊
 - 實際開機時序
 

@@ -26,7 +26,7 @@ ROM → U-Boot → Kernel → initramfs (完整 rootfs) → systemd
 
 ```
 ┌─────────────────────────────────────────┐
-│           ASPEED AST2600 SoC            │
+│           ASPEED AST2620-A3 SoC         │
 │  ┌─────────────────────────────────────┐ │
 │  │          ROM Code                   │ │
 │  │  ・初始化基本 CPU 暫存器             │ │
@@ -84,7 +84,7 @@ void rom_boot_sequence() {
 ```
 
 #### SPL 關鍵任務
-1. **DDR4 初始化**: 從 64KB SRAM 擴展到 512MB DDR4
+1. **DDR4 初始化**: 從 64KB SRAM 擴展到 1024MB DDR4 (910MB 可用)
 2. **時脈樹設定**: 配置所有周邊時脈
 3. **載入 U-Boot**: 準備完整的開機載入器
 
@@ -133,14 +133,14 @@ void spl_board_init() {
 
 #### FIT Image 結構
 ```bash
-FIT Image Layout (~48MB):
+FIT Image Layout (實際):
 ├── Header (1KB)
-├── Kernel Image (~8MB)
-│   └── vmlinux (gzip 壓縮)
-├── Device Tree Blob (~64KB)  
-│   └── aspeed-ast2600-yosemite4.dtb
-└── Initramfs (~40MB)
-    └── 完整的 OpenBMC rootfs (gzip 壓縮)
+├── Kernel Image (~4.4MB)
+│   └── vmlinux (uncompressed)
+├── Device Tree Blob (~71.5KB)  
+│   └── aspeed-bmc-facebook-yosemite4.dtb
+└── Initramfs (~46.7MB)
+    └── 完整的 OpenBMC rootfs (cpio.zst 壓縮)
 ```
 
 #### 開機參數配置
@@ -463,7 +463,7 @@ Swap:            0B          0B          0B
 ```
 
 記憶體分配說明：
-- **總記憶體**: 489MB (約 512MB 扣除硬體保留)
+- **總記憶體**: 910MB (1024MB 扣除 ECC 和硬體保留)
 - **已使用**: 180MB (核心 + 服務 + rootfs)
 - **緩存**: 220MB (檔案系統緩存 + 緩衝區)
 - **可用**: 285MB (實際可分配記憶體)
@@ -477,7 +477,7 @@ ubi0:rwfs        10M  2.1M  7.6M  22% /run/mnt-persist
 ```
 
 持久化分割區使用情況：
-- **總容量**: 10MB (UBIFS 分割區)
+- **總容量**: 32MB (UBIFS 分割區)
 - **已使用**: 2.1MB (配置和日誌檔案)
 - **可用**: 7.6MB (可儲存更多持久化資料)
 
